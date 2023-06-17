@@ -1,0 +1,1150 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ZContent.net//ZapCalLib 1.0//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230401
+DTEND;VALUE=DATE:20230402
+UID:2023-04-01-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230901
+DTEND;VALUE=DATE:20230902
+UID:2023-09-01-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230102
+DTEND;VALUE=DATE:20230103
+UID:2023-01-02-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230502
+DTEND;VALUE=DATE:20230503
+UID:2023-05-02-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230602
+DTEND;VALUE=DATE:20230603
+UID:2023-06-02-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20231002
+DTEND;VALUE=DATE:20231003
+UID:2023-10-02-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230203
+DTEND;VALUE=DATE:20230204
+UID:2023-02-03-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230303
+DTEND;VALUE=DATE:20230304
+UID:2023-03-03-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230703
+DTEND;VALUE=DATE:20230704
+UID:2023-07-03-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20231103
+DTEND;VALUE=DATE:20231104
+UID:2023-11-03-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230804
+DTEND;VALUE=DATE:20230805
+UID:2023-08-04-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230904
+DTEND;VALUE=DATE:20230905
+UID:2023-09-04-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20231204
+DTEND;VALUE=DATE:20231205
+UID:2023-12-04-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230405
+DTEND;VALUE=DATE:20230406
+UID:2023-04-05-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230505
+DTEND;VALUE=DATE:20230506
+UID:2023-05-05-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230605
+DTEND;VALUE=DATE:20230606
+UID:2023-06-05-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230106
+DTEND;VALUE=DATE:20230107
+UID:2023-01-06-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230206
+DTEND;VALUE=DATE:20230207
+UID:2023-02-06-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230306
+DTEND;VALUE=DATE:20230307
+UID:2023-03-06-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20231006
+DTEND;VALUE=DATE:20231007
+UID:2023-10-06-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20231106
+DTEND;VALUE=DATE:20231107
+UID:2023-11-06-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230707
+DTEND;VALUE=DATE:20230708
+UID:2023-07-07-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230807
+DTEND;VALUE=DATE:20230808
+UID:2023-08-07-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230907
+DTEND;VALUE=DATE:20230908
+UID:2023-09-07-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230508
+DTEND;VALUE=DATE:20230509
+UID:2023-05-08-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20231208
+DTEND;VALUE=DATE:20231209
+UID:2023-12-08-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230109
+DTEND;VALUE=DATE:20230110
+UID:2023-01-09-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230209
+DTEND;VALUE=DATE:20230210
+UID:2023-02-09-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230309
+DTEND;VALUE=DATE:20230310
+UID:2023-03-09-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20231009
+DTEND;VALUE=DATE:20231010
+UID:2023-10-09-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230610
+DTEND;VALUE=DATE:20230611
+UID:2023-06-10-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230710
+DTEND;VALUE=DATE:20230711
+UID:2023-07-10-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230810
+DTEND;VALUE=DATE:20230811
+UID:2023-08-10-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20231110
+DTEND;VALUE=DATE:20231111
+UID:2023-11-10-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230411
+DTEND;VALUE=DATE:20230412
+UID:2023-04-11-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230911
+DTEND;VALUE=DATE:20230912
+UID:2023-09-11-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20231211
+DTEND;VALUE=DATE:20231212
+UID:2023-12-11-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230112
+DTEND;VALUE=DATE:20230113
+UID:2023-01-12-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230512
+DTEND;VALUE=DATE:20230513
+UID:2023-05-12-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230612
+DTEND;VALUE=DATE:20230613
+UID:2023-06-12-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230213
+DTEND;VALUE=DATE:20230214
+UID:2023-02-13-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230313
+DTEND;VALUE=DATE:20230314
+UID:2023-03-13-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230713
+DTEND;VALUE=DATE:20230714
+UID:2023-07-13-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20231013
+DTEND;VALUE=DATE:20231014
+UID:2023-10-13-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20231113
+DTEND;VALUE=DATE:20231114
+UID:2023-11-13-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230814
+DTEND;VALUE=DATE:20230815
+UID:2023-08-14-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20231214
+DTEND;VALUE=DATE:20231215
+UID:2023-12-14-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230415
+DTEND;VALUE=DATE:20230416
+UID:2023-04-15-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230515
+DTEND;VALUE=DATE:20230516
+UID:2023-05-15-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230615
+DTEND;VALUE=DATE:20230616
+UID:2023-06-15-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230915
+DTEND;VALUE=DATE:20230916
+UID:2023-09-15-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230116
+DTEND;VALUE=DATE:20230117
+UID:2023-01-16-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20231016
+DTEND;VALUE=DATE:20231017
+UID:2023-10-16-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20231116
+DTEND;VALUE=DATE:20231117
+UID:2023-11-16-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230217
+DTEND;VALUE=DATE:20230218
+UID:2023-02-17-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230317
+DTEND;VALUE=DATE:20230318
+UID:2023-03-17-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230417
+DTEND;VALUE=DATE:20230418
+UID:2023-04-17-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230717
+DTEND;VALUE=DATE:20230718
+UID:2023-07-17-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230218
+DTEND;VALUE=DATE:20230219
+UID:2023-02-18-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230818
+DTEND;VALUE=DATE:20230819
+UID:2023-08-18-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230918
+DTEND;VALUE=DATE:20230919
+UID:2023-09-18-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20231218
+DTEND;VALUE=DATE:20231219
+UID:2023-12-18-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230519
+DTEND;VALUE=DATE:20230520
+UID:2023-05-19-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230619
+DTEND;VALUE=DATE:20230620
+UID:2023-06-19-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20231019
+DTEND;VALUE=DATE:20231020
+UID:2023-10-19-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230120
+DTEND;VALUE=DATE:20230121
+UID:2023-01-20-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230320
+DTEND;VALUE=DATE:20230321
+UID:2023-03-20-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230420
+DTEND;VALUE=DATE:20230421
+UID:2023-04-20-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20231120
+DTEND;VALUE=DATE:20231121
+UID:2023-11-20-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230721
+DTEND;VALUE=DATE:20230722
+UID:2023-07-21-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230821
+DTEND;VALUE=DATE:20230822
+UID:2023-08-21-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230921
+DTEND;VALUE=DATE:20230922
+UID:2023-09-21-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230522
+DTEND;VALUE=DATE:20230523
+UID:2023-05-22-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20231222
+DTEND;VALUE=DATE:20231223
+UID:2023-12-22-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230123
+DTEND;VALUE=DATE:20230124
+UID:2023-01-23-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230323
+DTEND;VALUE=DATE:20230324
+UID:2023-03-23-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230623
+DTEND;VALUE=DATE:20230624
+UID:2023-06-23-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20231023
+DTEND;VALUE=DATE:20231024
+UID:2023-10-23-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20231223
+DTEND;VALUE=DATE:20231224
+UID:2023-12-23-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230224
+DTEND;VALUE=DATE:20230225
+UID:2023-02-24-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230424
+DTEND;VALUE=DATE:20230425
+UID:2023-04-24-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230724
+DTEND;VALUE=DATE:20230725
+UID:2023-07-24-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230824
+DTEND;VALUE=DATE:20230825
+UID:2023-08-24-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20231124
+DTEND;VALUE=DATE:20231125
+UID:2023-11-24-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230925
+DTEND;VALUE=DATE:20230926
+UID:2023-09-25-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230126
+DTEND;VALUE=DATE:20230127
+UID:2023-01-26-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230526
+DTEND;VALUE=DATE:20230527
+UID:2023-05-26-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230626
+DTEND;VALUE=DATE:20230627
+UID:2023-06-26-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230227
+DTEND;VALUE=DATE:20230228
+UID:2023-02-27-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230327
+DTEND;VALUE=DATE:20230328
+UID:2023-03-27-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230727
+DTEND;VALUE=DATE:20230728
+UID:2023-07-27-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20231027
+DTEND;VALUE=DATE:20231028
+UID:2023-10-27-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20231127
+DTEND;VALUE=DATE:20231128
+UID:2023-11-27-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230428
+DTEND;VALUE=DATE:20230429
+UID:2023-04-28-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230828
+DTEND;VALUE=DATE:20230829
+UID:2023-08-28-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20230629
+DTEND;VALUE=DATE:20230630
+UID:2023-06-29-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230929
+DTEND;VALUE=DATE:20230930
+UID:2023-09-29-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20231229
+DTEND;VALUE=DATE:20231230
+UID:2023-12-29-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230130
+DTEND;VALUE=DATE:20230131
+UID:2023-01-30-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230530
+DTEND;VALUE=DATE:20230531
+UID:2023-05-30-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20231030
+DTEND;VALUE=DATE:20231031
+UID:2023-10-30-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wertstoff (gelb) AWB Köln
+DTSTART;VALUE=DATE:20231130
+DTEND;VALUE=DATE:20231201
+UID:2023-11-30-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Wertstofftonne finden Sie unter https
+ ://www.awbkoeln.de/wertstofftonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Papier (blau) AWB Köln
+DTSTART;VALUE=DATE:20230331
+DTEND;VALUE=DATE:20230401
+UID:2023-03-31-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Papiertonne finden Sie unter https://
+ www.awbkoeln.de/papiertonne. \nIhre Tonne ist abhanden gekommen oder defek
+ t? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersatztonn
+ e aus.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Restmüll (grau) AWB Köln
+DTSTART;VALUE=DATE:20230731
+DTEND;VALUE=DATE:20230801
+UID:2023-07-31-0@awbkoeln.de
+DTSTAMP:20230617T102110
+DESCRIPTION:Weitere Informationen zur Restmülltonne finden Sie unter https
+ ://www.awbkoeln.de/restmuelltonne. \nIhre Tonne ist abhanden gekommen oder
+  defekt? Bitte füllen Sie das Formular unter https://www.awbkoeln.de/ersa
+ tztonne aus.
+END:VEVENT
+END:VCALENDAR
