@@ -35,7 +35,7 @@ func startTwelveHourlyTicker() {
 		ticker.Reset(12 * time.Hour)
 	}()
 
-	fmt.Println("Warte jetzt bis :", nextTwelve.Format("02.01.2006 15:04"))
+	fmt.Println("Warte jetzt bis: ", nextTwelve.Format("02.01.2006 15:04"))
 	for {
 		<-ticker.C
 
@@ -53,7 +53,7 @@ func startTwelveHourlyTicker() {
 			nextTwelve = nextTwelve.Add(12 * time.Hour)
 		}
 
-		fmt.Println("Es sind 12 Stunden vergangen:", time.Now().Format("15:04"))
+		fmt.Println("Es sind 12 Stunden vergangen: ", time.Now().Format("15:04"))
 	}
 }
 
@@ -65,5 +65,6 @@ func main() {
 		log.Printf("Error loading .env file")
 	}
 
+	fmt.Printf("Start Slack Notification for Users: %s \n", slackUser.Users)
 	startTwelveHourlyTicker()
 }
