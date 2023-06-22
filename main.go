@@ -39,9 +39,9 @@ func startTwelveHourlyTicker() {
 	for {
 		<-ticker.C
 
-		calendar.Run()
+		result := calendar.Run()
 		nextTwelve = nextTwelve.Add(24 * time.Hour)
-		fmt.Println("Es sind 12 Stunden vergangen: ", time.Now().Format("15:04"))
+		fmt.Println(result, "Es sind 12 Stunden vergangen: ", time.Now().Format("15:04"), " und es ist Stunde: ", now.Hour())
 	}
 }
 

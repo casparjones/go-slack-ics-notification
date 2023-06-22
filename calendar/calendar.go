@@ -52,14 +52,15 @@ func (c *Calendar) Init() {
 	c.events = cal.Events
 }
 
-func (c *Calendar) Notify(user string) {
+func (c *Calendar) Notify(user string) string {
 	for _, e := range c.events {
 		// fmt.Printf("%s on %s\r\n", e.Summary, e.Start)
 		slack.Instance.SendCalenderEvent(e, user)
 	}
+	return user + " send notices"
 }
 
-func Run() {
+func Run() string {
 	c := Calendar{}
 
 	c.start, c.end = c.GetStartDateForDate(time.Now())
@@ -74,5 +75,5 @@ func Run() {
 		user = slackUser.Users["Wolf"]
 	}
 
-	c.Notify(user)
+	return c.Notify(user)
 }
