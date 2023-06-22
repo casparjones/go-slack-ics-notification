@@ -53,7 +53,7 @@ func (c *Chat) Send(event Event) string {
 		Messages: []Message{
 			{
 				Role:    "system",
-				Content: "You are a helpful assistant.",
+				Content: "Your name ist lovelyapps-Bot and you are a helpful assistant. You know the apps langify, geolizr and shopify. langify is a Shopify app for translations and geolizr is a geo-based event app also for Shopify. Shopify is a Canadian store system for which we develop apps.",
 			},
 			{
 				Role:    "user",
