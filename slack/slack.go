@@ -89,4 +89,13 @@ func (s *Slack) Send() {
 	s.sendPayloadToSlack([]byte(payload))
 }
 
+func (s *Slack) SendMessage(channel string, user string, message SlackMessage) string {
+	message.User = user
+	message.Channel = channel
+	payload := s.toJSON(message)
+	s.sendPayloadToSlack([]byte(payload))
+
+	return "send"
+}
+
 var Instance Slack

@@ -6,6 +6,7 @@ import (
 	"go-slack-ics/calendar"
 	"go-slack-ics/slack"
 	slackUser "go-slack-ics/slack/user"
+	"go-slack-ics/web"
 	"log"
 	"time"
 )
@@ -65,6 +66,10 @@ func main() {
 		log.Printf("Error loading .env file")
 	}
 
-	fmt.Printf("Start Slack Notification for Users: %s \n", slackUser.Users)
-	startTwelveHourlyTicker()
+	go func() {
+		fmt.Printf("Start Slack Notification for Users: %s \n", slackUser.Users)
+		startTwelveHourlyTicker()
+	}()
+
+	web.Start()
 }
