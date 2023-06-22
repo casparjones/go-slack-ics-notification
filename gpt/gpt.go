@@ -18,6 +18,7 @@ type Event struct {
 	UserName    string `json:"user_name"`
 	Commands    string `json:"commands"`
 	Text        string `json:"text"`
+	Timestamp   string `json:"ts,omitempty"`
 }
 
 type Chat struct {
@@ -79,7 +80,12 @@ func (c *Chat) Send(event Event) string {
 	gptResponseString := resp.String()
 	slackMessage := c.returnSlackMessage(gptResponseString)
 
-	return slack.Instance.SendMessage(event.Channel, event.User, slackMessage)
+	if event.Timestamp == "" {
+		return slack.Instance.SendMessage(event.Channel, event.User, slackMessage)
+	} else {
+		return slack.Instance.ChangeMessage(event.Timestamp, event.Channel, event.User, slackMessage)
+	}
+
 }
 
 func (c *Chat) returnSlackMessage(gptResponse string) slack.SlackMessage {

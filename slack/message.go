@@ -1,10 +1,11 @@
 package slack
 
 type SlackMessage struct {
-	Channel string  `json:"channel,omitempty"`
-	User    string  `json:"user,omitempty"`
-	Blocks  []Block `json:"blocks"`
-	Color   string  `json:"color"`
+	Channel   string  `json:"channel,omitempty"`
+	TimeStamp string  `json:"ts,omitempty"`
+	User      string  `json:"user,omitempty"`
+	Blocks    []Block `json:"blocks"`
+	Color     string  `json:"color"`
 }
 
 type Block struct {

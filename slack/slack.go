@@ -45,11 +45,20 @@ func (s *Slack) SendCalenderEvent(e gocal.Event, user string) {
 	}
 
 	payload := s.toJSON(msg)
-	s.sendPayloadToSlack([]byte(payload))
+	s.PostMessage([]byte(payload))
 }
 
-func (s *Slack) sendPayloadToSlack(payload []byte) string {
-	url := "https://slack.com/api/chat.postMessage"
+func (s *Slack) PostMessage(payload []byte) string {
+	url := "https://slack.com/api/chat.PostMessage"
+	return s.sendPayload(url, payload)
+}
+
+func (s *Slack) changeMessage(payload []byte) string {
+	url := "https://slack.com/api/chat.update"
+	return s.sendPayload(url, payload)
+}
+
+func (s *Slack) sendPayload(url string, payload []byte) string {
 	token := os.Getenv("SLACK_TOKEN")
 
 	client := &http.Client{}
@@ -86,14 +95,24 @@ func (s *Slack) Send() {
 	o["text"] = s.Message
 	o["channel"] = s.User
 	payload := s.toJSON(o)
-	s.sendPayloadToSlack([]byte(payload))
+	s.PostMessage([]byte(payload))
 }
 
 func (s *Slack) SendMessage(channel string, user string, message SlackMessage) string {
 	message.User = user
 	message.Channel = channel
 	payload := s.toJSON(message)
-	s.sendPayloadToSlack([]byte(payload))
+	s.PostMessage([]byte(payload))
+
+	return "send"
+}
+
+func (s *Slack) ChangeMessage(ts string, channel string, user string, message SlackMessage) string {
+	message.User = user
+	message.Channel = channel
+	message.TimeStamp = ts
+	payload := s.toJSON(message)
+	s.changeMessage([]byte(payload))
 
 	return "send"
 }
