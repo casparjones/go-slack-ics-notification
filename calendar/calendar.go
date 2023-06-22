@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/apognu/gocal"
 	"go-slack-ics/slack"
+	slackUser "go-slack-ics/slack/user"
 	"log"
 	"os"
 	"time"
@@ -51,10 +52,10 @@ func (c *Calendar) Init() {
 	c.events = cal.Events
 }
 
-func (c *Calendar) Notify() {
+func (c *Calendar) Notify(user string) {
 	for _, e := range c.events {
 		// fmt.Printf("%s on %s\r\n", e.Summary, e.Start)
-		slack.Instance.SendCalenderEvent(e)
+		slack.Instance.SendCalenderEvent(e, user)
 	}
 }
 
@@ -63,5 +64,15 @@ func Run() {
 
 	c.start, c.end = c.GetStartDateForDate(time.Now())
 	c.Init()
-	c.Notify()
+
+	now := time.Now()
+	slack.Instance = slack.Slack{}
+	var user string
+	if now.Hour() >= 12 {
+		user = slackUser.Users["Frank"]
+	} else if now.Hour() < 12 {
+		user = slackUser.Users["Wolf"]
+	}
+
+	c.Notify(user)
 }

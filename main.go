@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/joho/godotenv"
 	"go-slack-ics/calendar"
-	"go-slack-ics/slack"
 	slackUser "go-slack-ics/slack/user"
 	"go-slack-ics/web"
 	"log"
@@ -40,20 +39,8 @@ func startTwelveHourlyTicker() {
 	for {
 		<-ticker.C
 
-		if now.Hour() >= 12 {
-			slack.Instance = slack.Slack{}
-			slack.Instance.User = slackUser.Users["Frank"]
-			calendar.Run()
-
-			nextTwelve = nextTwelve.Add(24 * time.Hour)
-		} else if now.Hour() < 12 {
-			slack.Instance = slack.Slack{}
-			slack.Instance.User = slackUser.Users["Wolf"]
-			calendar.Run()
-
-			nextTwelve = nextTwelve.Add(12 * time.Hour)
-		}
-
+		calendar.Run()
+		nextTwelve = nextTwelve.Add(24 * time.Hour)
 		fmt.Println("Es sind 12 Stunden vergangen: ", time.Now().Format("15:04"))
 	}
 }

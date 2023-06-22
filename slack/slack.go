@@ -23,9 +23,9 @@ func (s *Slack) toJSON(v interface{}) string {
 	return string(marshal)
 }
 
-func (s *Slack) SendCalenderEvent(e gocal.Event) {
+func (s *Slack) SendCalenderEvent(e gocal.Event, user string) {
 	msg := SlackMessage{
-		Channel: s.User,
+		Channel: user,
 		Blocks: []Block{
 			{
 				Type: "header",
