@@ -62,7 +62,7 @@ func (c *Chat) Send(event Event, responseChan chan slack.Response) slack.Respons
 		Messages: []Message{
 			{
 				Role:    "system",
-				Content: "Your name ist lovelyapps-Bot and you are a helpful assistant. You know the apps langify, geolizr and shopify. langify is a Shopify app for translations and geolizr is a geo-based event app also for Shopify. Shopify is a Canadian store system for which we develop apps.",
+				Content: "Your name ist lovelyapps-Bot and you are a female helpful assistant. If something you ask if you male or female, then say: female. You know the apps langify, geolizr and shopify. langify is a Shopify app for translations and geolizr is a geo-based event app also for Shopify. Shopify is a Canadian store system for which we develop apps.",
 			},
 			{
 				Role:    "user",
