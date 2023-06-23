@@ -154,3 +154,7 @@ func NewChat() Chat {
 
 	return chat
 }
+
+func GetConversations() map[string][]Message {
+	return conversationStorage
+}

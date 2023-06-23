@@ -19,6 +19,11 @@ func (App) ServeHTTP() {
 		c.String(200, "Du bist im Go-Pfad!")
 	})
 
+	r.POST("/gpt-conversations", func(c *gin.Context) {
+		response := gpt.GetConversations()
+		c.JSON(200, response)
+	})
+
 	r.POST("/gpt", func(c *gin.Context) {
 		chat := gpt.NewChat()
 		var event gpt.Event
