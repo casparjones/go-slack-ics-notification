@@ -3,6 +3,7 @@ package web
 import (
 	"github.com/gin-gonic/gin"
 	"go-slack-ics/gpt"
+	"go-slack-ics/slack"
 )
 
 type App struct{}
@@ -26,8 +27,10 @@ func (App) ServeHTTP() {
 			return
 		}
 
-		rChan := chat.SendAsync(event)
-		response := <-rChan
+		chat.SendAsync(event)
+		response := slack.Response{
+			Ok: true,
+		}
 		c.JSON(200, response)
 	})
 

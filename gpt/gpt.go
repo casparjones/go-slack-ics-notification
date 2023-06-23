@@ -51,7 +51,10 @@ func (c *Chat) SendAsync(message Event) chan slack.Response {
 
 func (c *Chat) Send(event Event, responseChan chan slack.Response) slack.Response {
 	response := slack.Instance.SendMessage(event.Channel, event.User, slack.GetSimpleMessage(event.User, event.Channel, "... thinking ..."))
-	responseChan <- response
+	go func() {
+		responseChan <- response
+	}()
+
 	event.Timestamp = response.Ts
 
 	data := Data{
