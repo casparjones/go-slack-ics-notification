@@ -1,6 +1,6 @@
 package slack
 
-type SlackMessage struct {
+type Message struct {
 	Channel   string  `json:"channel,omitempty"`
 	TimeStamp string  `json:"ts,omitempty"`
 	User      string  `json:"user,omitempty"`
@@ -17,4 +17,20 @@ type Block struct {
 type Text struct {
 	Type string `json:"type"`
 	Text string `json:"text"`
+}
+
+func GetSimpleMessage(user string, channel string, message string) Message {
+	return Message{
+		User:    user,
+		Channel: channel,
+		Blocks: []Block{
+			{
+				Type: "section",
+				Text: &Text{
+					Type: "mrkdwn",
+					Text: message,
+				},
+			},
+		},
+	}
 }

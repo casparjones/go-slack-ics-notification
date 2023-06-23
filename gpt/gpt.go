@@ -43,12 +43,17 @@ type Data struct {
 	Messages []Message `json:"messages"`
 }
 
-func (c *Chat) SendAsync(message Event) bool {
-	go c.Send(message)
-	return true
+func (c *Chat) SendAsync(message Event) chan slack.Response {
+	rchan := make(chan slack.Response)
+	go c.Send(message, rchan)
+	return rchan
 }
 
-func (c *Chat) Send(event Event) string {
+func (c *Chat) Send(event Event, responseChan chan slack.Response) slack.Response {
+	response := slack.Instance.SendMessage(event.Channel, event.User, slack.GetSimpleMessage(event.User, event.Channel, "... thinking ..."))
+	responseChan <- response
+	event.Timestamp = response.Ts
+
 	data := Data{
 		Model: "gpt-3.5-turbo",
 		Messages: []Message{
@@ -88,7 +93,7 @@ func (c *Chat) Send(event Event) string {
 
 }
 
-func (c *Chat) returnSlackMessage(gptResponse string) slack.SlackMessage {
+func (c *Chat) returnSlackMessage(gptResponse string) slack.Message {
 	var response GptResponse
 	err := json.Unmarshal([]byte(gptResponse), &response)
 	if err != nil {
@@ -107,7 +112,7 @@ func (c *Chat) returnSlackMessage(gptResponse string) slack.SlackMessage {
 		Text: &text,
 	}
 
-	return slack.SlackMessage{
+	return slack.Message{
 		Color:  "#f2c744",
 		Blocks: []slack.Block{block},
 	}

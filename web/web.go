@@ -25,8 +25,10 @@ func (App) ServeHTTP() {
 			c.JSON(400, gin.H{"error": err.Error()})
 			return
 		}
-		chat.SendAsync(event)
-		c.String(200, "Anfrage abgeschickt")
+
+		rChan := chat.SendAsync(event)
+		response := <-rChan
+		c.JSON(200, response)
 	})
 
 	r.NoRoute(func(c *gin.Context) {

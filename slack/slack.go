@@ -24,7 +24,7 @@ func (s *Slack) toJSON(v interface{}) string {
 }
 
 func (s *Slack) SendCalenderEvent(e gocal.Event, user string) {
-	msg := SlackMessage{
+	msg := Message{
 		Channel: user,
 		Blocks: []Block{
 			{
@@ -48,17 +48,17 @@ func (s *Slack) SendCalenderEvent(e gocal.Event, user string) {
 	s.PostMessage([]byte(payload))
 }
 
-func (s *Slack) PostMessage(payload []byte) string {
-	url := "https://slack.com/api/chat.PostMessage"
+func (s *Slack) PostMessage(payload []byte) Response {
+	url := "https://slack.com/api/chat.postMessage"
 	return s.sendPayload(url, payload)
 }
 
-func (s *Slack) changeMessage(payload []byte) string {
+func (s *Slack) changeMessage(payload []byte) Response {
 	url := "https://slack.com/api/chat.update"
 	return s.sendPayload(url, payload)
 }
 
-func (s *Slack) sendPayload(url string, payload []byte) string {
+func (s *Slack) sendPayload(url string, payload []byte) Response {
 	token := os.Getenv("SLACK_TOKEN")
 
 	client := &http.Client{}
@@ -72,7 +72,7 @@ func (s *Slack) sendPayload(url string, payload []byte) string {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Fatalf("Fehler beim Senden der Anforderung: %v", err)
+		log.Printf("Fehler beim Senden der Anforderung: %v", err)
 	}
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
@@ -86,7 +86,13 @@ func (s *Slack) sendPayload(url string, payload []byte) string {
 		log.Fatalf("Fehler beim Lesen der Antwort: %v", err)
 	}
 
-	return string(body)
+	var response Response
+	err = json.Unmarshal(body, &response)
+	if err != nil {
+		log.Printf("response error: %s", err.Error())
+	}
+
+	return response
 }
 
 func (s *Slack) Send() {
@@ -98,23 +104,23 @@ func (s *Slack) Send() {
 	s.PostMessage([]byte(payload))
 }
 
-func (s *Slack) SendMessage(channel string, user string, message SlackMessage) string {
+func (s *Slack) SendMessage(channel string, user string, message Message) Response {
 	message.User = user
 	message.Channel = channel
 	payload := s.toJSON(message)
-	s.PostMessage([]byte(payload))
+	response := s.PostMessage([]byte(payload))
 
-	return "send"
+	return response
 }
 
-func (s *Slack) ChangeMessage(ts string, channel string, user string, message SlackMessage) string {
+func (s *Slack) ChangeMessage(ts string, channel string, user string, message Message) Response {
 	message.User = user
 	message.Channel = channel
 	message.TimeStamp = ts
 	payload := s.toJSON(message)
-	s.changeMessage([]byte(payload))
+	response := s.changeMessage([]byte(payload))
 
-	return "send"
+	return response
 }
 
 var Instance Slack
