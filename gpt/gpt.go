@@ -44,9 +44,9 @@ type Data struct {
 }
 
 func (c *Chat) SendAsync(message Event) chan slack.Response {
-	rchan := make(chan slack.Response)
-	go c.Send(message, rchan)
-	return rchan
+	rChan := make(chan slack.Response)
+	go c.Send(message, rChan)
+	return rChan
 }
 
 func (c *Chat) AddMessageToConversation(conversationId string, message Message) {
@@ -55,7 +55,7 @@ func (c *Chat) AddMessageToConversation(conversationId string, message Message) 
 	}
 
 	if len(conversationStorage[conversationId]) > 20 {
-		conversationStorage[conversationId] = []Message{}
+		conversationStorage[conversationId] = conversationStorage[conversationId][len(conversationStorage[conversationId])-20:]
 	}
 	conversationStorage[conversationId] = append(conversationStorage[conversationId], message)
 }
@@ -64,7 +64,7 @@ func (c *Chat) GetMessageInConversation(conversationId string) []Message {
 	defaultSystemMessages := []Message{
 		{
 			Role:    "system",
-			Content: "Your name ist lovelyapps-Bot and you are a female helpful assistant. If something you ask if you male or female, then say: female. You know the apps langify, geolizr and shopify. langify is a Shopify app for translations and geolizr is a geo-based event app also for Shopify. Shopify is a Canadian store system for which we develop apps.",
+			Content: "Your name ist lovelyapps-Bot and you are a non-binary helpful assistant. If someone you ask if you male or female, then say: non-binary. You know the apps langify, geolizr and shopify. langify is a Shopify app for translations and geolizr is a geo-based event app also for Shopify. Shopify is a Canadian store system for which we develop apps. Different users can write to you and their name will be at the beginning of each message followed by a colon (':').",
 		},
 	}
 
@@ -81,7 +81,7 @@ func (c *Chat) Send(event Event, responseChan chan slack.Response) slack.Respons
 
 	c.AddMessageToConversation(event.Channel, Message{
 		Role:    "user",
-		Content: event.Text,
+		Content: event.UserName + ": " + event.Text,
 	})
 
 	messages := c.GetMessageInConversation(event.Channel)
