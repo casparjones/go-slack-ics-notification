@@ -41,7 +41,9 @@ func (App) ServeHTTP() {
 			}
 		}()
 
-		c.JSON(200, "ok")
+		c.JSON(200, gin.H{
+			"response_type": "in_channel",
+		})
 	})
 
 	r.POST("/gpt", func(c *gin.Context) {
