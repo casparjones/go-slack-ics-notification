@@ -2,8 +2,10 @@ package web
 
 import (
 	"github.com/gin-gonic/gin"
+	"go-slack-ics/clipdrop"
 	"go-slack-ics/gpt"
 	"go-slack-ics/slack"
+	"log"
 )
 
 type App struct{}
@@ -24,9 +26,27 @@ func (App) ServeHTTP() {
 		c.JSON(200, response)
 	})
 
+	r.POST("/text-to-image", func(c *gin.Context) {
+		tti := clipdrop.NewTextToImage()
+		var event slack.Event
+		if err := c.ShouldBindJSON(&event); err != nil {
+			c.JSON(400, gin.H{"error": err.Error()})
+			return
+		}
+
+		go func() {
+			_, err := tti.Prompt(event)
+			if err != nil {
+				log.Fatal(err.Error())
+			}
+		}()
+
+		c.JSON(200, "ok")
+	})
+
 	r.POST("/gpt", func(c *gin.Context) {
 		chat := gpt.NewChat()
-		var event gpt.Event
+		var event slack.Event
 		if err := c.ShouldBindJSON(&event); err != nil {
 			c.JSON(400, gin.H{"error": err.Error()})
 			return

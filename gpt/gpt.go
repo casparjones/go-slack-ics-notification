@@ -8,19 +8,6 @@ import (
 	"os"
 )
 
-type Event struct {
-	Token       string `json:"token"`
-	TeamID      string `json:"team_id"`
-	TeamDomain  string `json:"team_domain"`
-	Channel     string `json:"channel"`
-	ChannelName string `json:"channel_name"`
-	User        string `json:"user"`
-	UserName    string `json:"user_name"`
-	Commands    string `json:"commands"`
-	Text        string `json:"text"`
-	Timestamp   string `json:"ts,omitempty"`
-}
-
 type Chat struct {
 	resty *resty.Client
 }
@@ -43,7 +30,7 @@ type Data struct {
 	Messages []Message `json:"messages"`
 }
 
-func (c *Chat) SendAsync(message Event) chan slack.Response {
+func (c *Chat) SendAsync(message slack.Event) chan slack.Response {
 	rChan := make(chan slack.Response)
 	go c.Send(message, rChan)
 	return rChan
@@ -71,7 +58,7 @@ func (c *Chat) GetMessageInConversation(conversationId string) []Message {
 	return append(defaultSystemMessages, conversationStorage[conversationId]...)
 }
 
-func (c *Chat) Send(event Event, responseChan chan slack.Response) slack.Response {
+func (c *Chat) Send(event slack.Event, responseChan chan slack.Response) slack.Response {
 	response := slack.Instance.SendMessage(event.Channel, event.User, slack.GetSimpleMessage(event.User, event.Channel, "... thinking ..."))
 	go func() {
 		responseChan <- response
@@ -127,22 +114,8 @@ func (c *Chat) Send(event Event, responseChan chan slack.Response) slack.Respons
 }
 
 func (c *Chat) returnSlackMessage(gptResponse GptResponse) slack.Message {
-	// Implement your logic to transform the gptResponse into a SlackMessage.
-	answer := gptResponse.Choices[0].Message.Content
-	text := slack.Text{
-		Type: "mrkdwn",
-		Text: answer,
-	}
-
-	block := slack.Block{
-		Type: "section",
-		Text: &text,
-	}
-
-	return slack.Message{
-		Color:  "#f2c744",
-		Blocks: []slack.Block{block},
-	}
+	input := slack.Input{Content: gptResponse.Choices[0].Message.Content}
+	return slack.ReturnSlackMessage(input)
 }
 
 var conversationStorage map[string][]Message

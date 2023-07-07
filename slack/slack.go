@@ -123,4 +123,35 @@ func (s *Slack) ChangeMessage(ts string, channel string, user string, message Me
 	return response
 }
 
+func ReturnSlackMessage(inputString Input) Message {
+	// Implement your logic to transform the inputString into a SlackMessage.
+	answer := inputString.Content
+	text := Text{
+		Type: "mrkdwn",
+		Text: answer,
+	}
+
+	block := Block{
+		Type: "section",
+		Text: &text,
+	}
+
+	return Message{
+		Color:  "#f2c744",
+		Blocks: []Block{block},
+	}
+}
+
+func ReturnSlackImage(inputString Input) Message {
+	message := ReturnSlackMessage(inputString)
+	message.Attachments = []Attachment{
+		{
+			Fallback: inputString.Content,
+			ImageURL: inputString.ImageUrl,
+		},
+	}
+
+	return message
+}
+
 var Instance Slack
