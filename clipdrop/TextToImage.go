@@ -9,6 +9,7 @@ import (
 	"io"
 	"mime/multipart"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 )
@@ -83,6 +84,6 @@ func (tti *TextToImage) returnSlackMessage(result TtiResponse) slack.Message {
 
 func NewTextToImage() (tti TextToImage) {
 	tti.Endpoint = "https://clipdrop-api.co/text-to-image/v1"
-	tti.apiKey = "b84396361c052256cebcbdbd70cedf0b30367522ee94618c36c7150d2fa430e0870159938df4bee52aa9c9cf5f899d4e"
+	tti.apiKey = os.Getenv("CLIPDROP_API_KEY")
 	return tti
 }
