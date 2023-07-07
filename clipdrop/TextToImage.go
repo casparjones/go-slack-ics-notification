@@ -33,10 +33,9 @@ func (tti *TextToImage) hash(s string) string {
 	return strconv.FormatUint(h.Sum64(), 10)
 }
 
-func (tti *TextToImage) Prompt(event slack.Event) (*TtiResponse, error) {
-	message := slack.GetSimpleMessage(event.User, event.Channel, fmt.Sprintf("imagine .o0(%s); please wait...", event.Text))
-	initMessageResponse := slack.Instance.SendMessage(event.Channel, event.User, message)
-	event.Timestamp = initMessageResponse.Ts
+func (tti *TextToImage) Prompt(event slack.Command) (*TtiResponse, error) {
+	message := slack.GetSimpleMessage(event.UserID, event.ChannelID, fmt.Sprintf("imagine .o0(%s); please wait...", event.Text))
+	initMessageResponse := slack.Instance.SendMessage(event.ChannelID, event.UserID, message)
 
 	var b bytes.Buffer
 	w := multipart.NewWriter(&b)
@@ -72,7 +71,7 @@ func (tti *TextToImage) Prompt(event slack.Event) (*TtiResponse, error) {
 	result := TtiResponse{event.Text, url}
 
 	slackMessage := tti.returnSlackMessage(result)
-	slack.Instance.ChangeMessage(event.Timestamp, event.Channel, event.User, slackMessage)
+	slack.Instance.ChangeMessage(initMessageResponse.Ts, event.ChannelID, event.UserID, slackMessage)
 
 	return &result, nil
 }

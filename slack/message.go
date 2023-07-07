@@ -10,6 +10,22 @@ type Message struct {
 	Color       string       `json:"color"`
 }
 
+type Command struct {
+	Token               string `url:"token"`
+	TeamID              string `url:"team_id"`
+	TeamDomain          string `url:"team_domain"`
+	ChannelID           string `url:"channel_id"`
+	ChannelName         string `url:"channel_name"`
+	UserID              string `url:"user_id"`
+	UserName            string `url:"user_name"`
+	Command             string `url:"command"`
+	Text                string `url:"text"`
+	APIAppID            string `url:"api_app_id"`
+	IsEnterpriseInstall bool   `url:"is_enterprise_install"`
+	ResponseURL         string `url:"response_url"`
+	TriggerID           string `url:"trigger_id"`
+}
+
 type Attachment struct {
 	Fallback string `json:"fallback"`
 	ImageURL string `json:"image_url"`

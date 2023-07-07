@@ -5,7 +5,9 @@ import (
 	"go-slack-ics/clipdrop"
 	"go-slack-ics/gpt"
 	"go-slack-ics/slack"
+	"io"
 	"log"
+	"net/url"
 )
 
 type App struct{}
@@ -28,11 +30,18 @@ func (App) ServeHTTP() {
 
 	r.POST("/text-to-image", func(c *gin.Context) {
 		tti := clipdrop.NewTextToImage()
-		var event slack.Event
-		if err := c.ShouldBindJSON(&event); err != nil {
+		var event slack.Command
+		body, err := io.ReadAll(c.Request.Body)
+		if err != nil {
 			c.JSON(400, gin.H{"error": err.Error()})
 			return
 		}
+
+		values, err := url.ParseQuery(string(body))
+
+		event.ChannelID = values.Get("channel_id")
+		event.Text = values.Get("text")
+		event.Command = values.Get("command")
 
 		go func() {
 			_, err := tti.Prompt(event)
