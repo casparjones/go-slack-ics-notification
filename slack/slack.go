@@ -3,11 +3,12 @@ package slack
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/apognu/gocal"
 	"io"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/apognu/gocal"
 )
 
 type Slack struct {
@@ -67,7 +68,7 @@ func (s *Slack) sendPayload(url string, payload []byte) Response {
 		log.Fatalf("Fehler beim Erstellen der Anforderung: %v", err)
 	}
 
-	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 	req.Header.Set("Authorization", "Bearer "+token)
 
 	resp, err := client.Do(req)

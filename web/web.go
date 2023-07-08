@@ -1,11 +1,12 @@
 package web
 
 import (
-	"github.com/gin-gonic/gin"
 	"go-slack-ics/clipdrop"
 	"go-slack-ics/gpt"
 	"go-slack-ics/slack"
 	"log"
+
+	"github.com/gin-gonic/gin"
 )
 
 type App struct{}
@@ -14,7 +15,7 @@ func (App) ServeHTTP() {
 	r := gin.Default()
 
 	r.GET("/", func(c *gin.Context) {
-		c.String(200, "Hallo Welt!")
+		c.String(200, "Hello World!")
 	})
 
 	r.GET("/go", func(c *gin.Context) {
