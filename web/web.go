@@ -55,6 +55,21 @@ func (App) ServeHTTP() {
 		})
 	})
 
+	r.POST("/gpt-event", func(c *gin.Context) {
+		chat := gpt.NewChat()
+		var payload slack.Payload
+		if err := c.ShouldBindJSON(&payload); err != nil {
+			c.JSON(400, gin.H{"error": err.Error()})
+			return
+		}
+
+		chat.SendAsync(payload.Event)
+		response := slack.Response{
+			Ok: true,
+		}
+		c.JSON(200, response)
+	})
+
 	r.POST("/gpt", func(c *gin.Context) {
 		chat := gpt.NewChat()
 		var event slack.Event

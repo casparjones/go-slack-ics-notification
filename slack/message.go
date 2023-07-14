@@ -36,17 +36,73 @@ type Input struct {
 	ImageUrl string
 }
 
+type Payload struct {
+	Token               string          `json:"token"`
+	TeamID              string          `json:"team_id"`
+	ContextTeamID       string          `json:"context_team_id"`
+	ContextEnterpriseID *string         `json:"context_enterprise_id"`
+	ApiAppID            string          `json:"api_app_id"`
+	Event               Event           `json:"event"`
+	Type                string          `json:"type"`
+	EventID             string          `json:"event_id"`
+	EventTime           int             `json:"event_time"`
+	Authorizations      []Authorization `json:"authorizations"`
+	IsExtSharedChannel  bool            `json:"is_ext_shared_channel"`
+	EventContext        string          `json:"event_context"`
+}
+
+type MessageDetail struct {
+	BotID      string     `json:"bot_id"`
+	Type       string     `json:"type"`
+	Text       string     `json:"text"`
+	User       string     `json:"user"`
+	AppID      string     `json:"app_id"`
+	Blocks     []Block    `json:"blocks"`
+	Team       string     `json:"team"`
+	BotProfile BotProfile `json:"bot_profile"`
+	Edited     Edited     `json:"edited"`
+	Ts         string     `json:"ts"`
+	SourceTeam string     `json:"source_team"`
+	UserTeam   string     `json:"user_team"`
+}
+
+type Icons struct {
+	Image36 string `json:"image_36"`
+	Image48 string `json:"image_48"`
+	Image72 string `json:"image_72"`
+}
+
+type Edited struct {
+	User string `json:"user"`
+	Ts   string `json:"ts"`
+}
+
+type Authorization struct {
+	EnterpriseID        *string `json:"enterprise_id"`
+	TeamID              string  `json:"team_id"`
+	UserID              string  `json:"user_id"`
+	IsBot               bool    `json:"is_bot"`
+	IsEnterpriseInstall bool    `json:"is_enterprise_install"`
+}
+
 type Event struct {
-	Token       string `json:"token"`
-	TeamID      string `json:"team_id"`
-	TeamDomain  string `json:"team_domain"`
-	Channel     string `json:"channel"`
-	ChannelName string `json:"channel_name"`
-	User        string `json:"user"`
-	UserName    string `json:"user_name"`
-	Commands    string `json:"commands"`
-	Text        string `json:"text"`
-	Timestamp   string `json:"ts,omitempty"`
+	Type            string        `json:"type"`
+	Subtype         string        `json:"subtype"`
+	Message         MessageDetail `json:"message"`
+	PreviousMessage MessageDetail `json:"previous_message"`
+	Channel         string        `json:"channel"`
+	Hidden          bool          `json:"hidden"`
+	EventTs         string        `json:"event_ts"`
+	ChannelType     string        `json:"channel_type"`
+	Token           string        `json:"token"`
+	TeamID          string        `json:"team_id"`
+	TeamDomain      string        `json:"team_domain"`
+	ChannelName     string        `json:"channel_name"`
+	User            string        `json:"user"`
+	UserName        string        `json:"user_name"`
+	Commands        string        `json:"commands"`
+	Text            string        `json:"text"`
+	Timestamp       string        `json:"ts,omitempty"`
 }
 
 type Block struct {
