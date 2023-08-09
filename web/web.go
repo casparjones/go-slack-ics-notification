@@ -16,7 +16,7 @@ func (App) ServeHTTP() {
 	r := gin.Default()
 
 	r.GET("/", func(c *gin.Context) {
-		c.String(200, "Hallo Welt!")
+		c.String(200, "Hello World!")
 	})
 
 	r.GET("/go", func(c *gin.Context) {
