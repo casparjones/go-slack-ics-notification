@@ -28,8 +28,8 @@ func (c *Calendar) GetStartDateForYear(year int) (time.Time, time.Time) {
 }
 
 func (c *Calendar) GetStartDateForDate(datetime time.Time) (time.Time, time.Time) {
-	midnight := time.Date(datetime.Year(), datetime.Month(), datetime.Day(), 0, 0, 0, 0, datetime.Location())
-	return midnight, midnight.Add(2 * 24 * time.Hour)
+	startTime := time.Date(datetime.Year(), datetime.Month(), datetime.Day(), 4, 0, 0, 0, datetime.Location())
+	return startTime, startTime.Add(2 * 24 * time.Hour)
 }
 
 func (c *Calendar) GetStartDateForToday() (time.Time, time.Time) {

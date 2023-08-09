@@ -73,7 +73,7 @@ func (c *Chat) Send(event slack.Event, responseChan chan slack.Response) slack.R
 
 	messages := c.GetMessageInConversation(event.Channel)
 	data := Data{
-		Model:    "gpt-3.5-turbo",
+		Model:    os.Getenv("GPT_MODEL"),
 		Messages: messages,
 	}
 
