@@ -7,7 +7,6 @@ require (
 	github.com/aws/aws-sdk-go v1.44.298
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-resty/resty/v2 v2.7.0
-	github.com/google/go-querystring v1.1.0
 	github.com/joho/godotenv v1.5.1
 )
 
