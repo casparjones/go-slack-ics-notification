@@ -3,8 +3,10 @@ package slack
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
+	"mime/multipart"
 	"net/http"
 	"os"
 
@@ -122,6 +124,65 @@ func (s *Slack) ChangeMessage(ts string, channel string, user string, message Me
 	response := s.changeMessage([]byte(payload))
 
 	return response
+}
+
+func (s *Slack) SendImageToSlack(fileBytes []byte, fileName, message, channel string) error {
+	token := os.Getenv("SLACK_TOKEN")
+
+	// Erstelle einen Buffer und einen multipart writer
+	var requestBody bytes.Buffer
+	multipartWriter := multipart.NewWriter(&requestBody)
+
+	// Füge die Datei hinzu. Ersetze 'file' durch einen geeigneten Dateinamen.
+	filePart, err := multipartWriter.CreateFormFile("file", fileName)
+	if err != nil {
+		return err
+	}
+
+	// Schreibe die Byte-Daten in das filePart
+	if _, err := filePart.Write(fileBytes); err != nil {
+		return err
+	}
+
+	// Füge die anderen Felder hinzu
+	if err := multipartWriter.WriteField("initial_comment", message); err != nil {
+		return err
+	}
+	if err := multipartWriter.WriteField("channels", channel); err != nil {
+		return err
+	}
+
+	// Wichtig: Schließe den multipart writer, um das Ende des Formulars zu signalisieren
+	if err := multipartWriter.Close(); err != nil {
+		return err
+	}
+
+	// Erstelle die Anfrage
+	req, err := http.NewRequest("POST", "https://slack.com/api/files.upload", &requestBody)
+	if err != nil {
+		return err
+	}
+
+	// Setze den Authorization Header und Content-Type
+	req.Header.Set("Authorization", "Bearer "+token)
+	req.Header.Set("Content-Type", multipartWriter.FormDataContentType())
+
+	// Sende die Anfrage
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	// Überprüfe den Status der Antwort
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("Fehler beim Hochladen der Datei: %s", resp.Status)
+	}
+
+	// Optional: Antwort von Slack verarbeiten
+
+	return nil
 }
 
 func ReturnSlackMessage(inputString Input) Message {
