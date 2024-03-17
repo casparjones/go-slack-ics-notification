@@ -79,6 +79,12 @@ func (c *Chat) GetMessageInConversation(conversationId string) []Message {
 }
 
 func (c *Chat) Send(event slack.Event, responseChan chan slack.Response) slack.Response {
+	if strings.Contains(event.Text, "/text-to-image") {
+		responseCreateImage := slack.Instance.SendMessage(event.Channel, event.User, slack.GetSimpleMessage(event.User, event.Channel, "... creating Image ..."))
+		responseChan <- responseCreateImage
+		return responseCreateImage
+	}
+
 	response := slack.Instance.SendMessage(event.Channel, event.User, slack.GetSimpleMessage(event.User, event.Channel, "... thinking ..."))
 	go func() {
 		responseChan <- response
