@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/go-resty/resty/v2"
 	"go-slack-ics/slack"
+	"go-slack-ics/system"
 	"io"
 	"log"
 	"os"
@@ -13,7 +14,10 @@ import (
 )
 
 type Chat struct {
-	resty *resty.Client
+	resty        *resty.Client
+	cancelChanel chan system.EventMessage
+	eventManager *system.EventManager
+	cancel       bool
 }
 
 type Message struct {
@@ -51,9 +55,22 @@ type Choice struct {
 }
 
 func (c *Chat) SendAsync(message slack.Event) chan slack.Response {
+	c.cancelChanel = c.eventManager.RegisterChannel(message.Channel)
 	rChan := make(chan slack.Response)
+	go c.CancelObserver()
 	go c.Send(message, rChan)
 	return rChan
+}
+
+func (c *Chat) CancelObserver() {
+	for {
+		select {
+		case event := <-c.cancelChanel:
+			if event.Text == "cancel" {
+				c.cancel = true
+			}
+		}
+	}
 }
 
 func (c *Chat) AddMessageToConversation(conversationId string, message Message) {
@@ -131,6 +148,9 @@ func (c *Chat) Send(event slack.Event, responseChan chan slack.Response) slack.R
 	for {
 		n, err := body.Read(buf)
 
+		if c.cancel {
+			break
+		}
 		if err == io.EOF {
 			break // Beenden Sie die Schleife, wenn das Ende der Daten erreicht ist.
 		}
@@ -188,9 +208,11 @@ func (c *Chat) returnSlackMessage(gptResponse GptResponse) slack.Message {
 
 var conversationStorage map[string][]Message
 
-func NewChat() Chat {
+func NewChat(eventManager *system.EventManager) Chat {
 	chat := Chat{
-		resty: resty.New(),
+		resty:        resty.New(),
+		eventManager: eventManager,
+		cancel:       false,
 	}
 
 	return chat

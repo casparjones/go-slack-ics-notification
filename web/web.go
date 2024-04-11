@@ -5,6 +5,7 @@ import (
 	"go-slack-ics/clipdrop"
 	"go-slack-ics/gpt"
 	"go-slack-ics/slack"
+	"go-slack-ics/system"
 	"io"
 	"log"
 	"net/url"
@@ -15,6 +16,7 @@ type App struct{}
 func (App) ServeHTTP() {
 	r := gin.Default()
 
+	eventManager := system.NewEventManager()
 	r.GET("/", func(c *gin.Context) {
 		c.String(200, "Hello World!")
 	})
@@ -56,7 +58,7 @@ func (App) ServeHTTP() {
 	})
 
 	r.POST("/gpt-event", func(c *gin.Context) {
-		chat := gpt.NewChat()
+		chat := gpt.NewChat(eventManager)
 		var payload slack.Payload
 		if err := c.ShouldBindJSON(&payload); err != nil {
 			c.JSON(400, gin.H{"error": err.Error()})
@@ -70,8 +72,29 @@ func (App) ServeHTTP() {
 		c.JSON(200, response)
 	})
 
+	r.POST("/gpt-cancel", func(c *gin.Context) {
+		var event slack.Event
+		if err := c.ShouldBindJSON(&event); err != nil {
+			c.JSON(400, gin.H{"error": err.Error()})
+			return
+		}
+
+		go func() {
+			if eventManager.HasChannel(event.Channel) {
+				eventChannel := eventManager.GetChannel(event.Channel)
+				eventChannel <- system.EventMessage{
+					ChannelID: event.Channel,
+					Text:      "cancel",
+				}
+				eventManager.DeleteChannel(event.Channel)
+			}
+		}()
+
+		c.JSON(200, gin.H{"success": eventManager.HasChannel(event.Channel)})
+	})
+
 	r.POST("/gpt", func(c *gin.Context) {
-		chat := gpt.NewChat()
+		chat := gpt.NewChat(eventManager)
 		var event slack.Event
 		if err := c.ShouldBindJSON(&event); err != nil {
 			c.JSON(400, gin.H{"error": err.Error()})
