@@ -32,6 +32,12 @@ func (em *EventManager) GetChannel(channelID string) chan EventMessage {
 }
 
 func (em *EventManager) RegisterChannel(channelID string) chan EventMessage {
+	if em.channels[channelID] != nil {
+		em.channels[channelID] <- EventMessage{
+			ChannelID: channelID,
+			Text:      "cancel",
+		}
+	}
 	em.channels[channelID] = make(chan EventMessage)
 	return em.channels[channelID]
 }
