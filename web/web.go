@@ -31,7 +31,7 @@ func (App) ServeHTTP() {
 		c.JSON(200, response)
 	})
 
-	r.POST("/leonardo/tti", func(c *gin.Context) {
+	r.POST("/text-to-image", func(c *gin.Context) {
 		body, err := io.ReadAll(c.Request.Body)
 		if err != nil {
 			c.JSON(400, gin.H{"error": err.Error()})
@@ -71,7 +71,7 @@ func (App) ServeHTTP() {
 		})
 	})
 
-	r.POST("/text-to-image", func(c *gin.Context) {
+	r.POST("/clipdrop/tti", func(c *gin.Context) {
 		tti := clipdrop.NewTextToImage()
 		var event slack.Command
 		body, err := io.ReadAll(c.Request.Body)
