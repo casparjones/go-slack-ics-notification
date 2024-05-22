@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-slack-ics/clipdrop"
 	"go-slack-ics/gpt"
+	"go-slack-ics/leonardo"
 	"go-slack-ics/slack"
 	"go-slack-ics/system"
 	"io"
@@ -30,6 +31,46 @@ func (App) ServeHTTP() {
 		c.JSON(200, response)
 	})
 
+	r.POST("/leonardo/tti", func(c *gin.Context) {
+		body, err := io.ReadAll(c.Request.Body)
+		if err != nil {
+			c.JSON(400, gin.H{"error": err.Error()})
+			return
+		}
+
+		values, err := url.ParseQuery(string(body))
+
+		var event slack.Command
+		event.ChannelID = values.Get("channel_id")
+		event.Text = values.Get("text")
+		event.Command = values.Get("command")
+
+		if event.Text == "" {
+			c.JSON(200, gin.H{
+				"response_type": "in_channel",
+				"error":         "text is empty",
+			})
+			return
+		}
+
+		go func() {
+			bodyBytes, filename, err := leonardo.NewTextToImage(event.Text)
+			if err != nil {
+				c.JSON(400, gin.H{"error": err.Error()})
+				return
+			}
+
+			err = slack.Instance.SendImageToSlack(bodyBytes, filename, event.Text, event.ChannelID)
+			if err != nil {
+				log.Fatal(err.Error())
+			}
+		}()
+
+		c.JSON(200, gin.H{
+			"response_type": "in_channel",
+		})
+	})
+
 	r.POST("/text-to-image", func(c *gin.Context) {
 		tti := clipdrop.NewTextToImage()
 		var event slack.Command
@@ -44,6 +85,14 @@ func (App) ServeHTTP() {
 		event.ChannelID = values.Get("channel_id")
 		event.Text = values.Get("text")
 		event.Command = values.Get("command")
+
+		if event.Text == "" {
+			c.JSON(200, gin.H{
+				"response_type": "in_channel",
+				"error":         "text is empty",
+			})
+			return
+		}
 
 		go func() {
 			_, err := tti.Prompt(event)

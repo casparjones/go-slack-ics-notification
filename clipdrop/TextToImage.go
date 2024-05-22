@@ -84,6 +84,9 @@ func (tti *TextToImage) Prompt(event slack.Command) (*TtiResponse, error) {
 	// s3Url := objectServer.Save(filename, bodyBytes)
 	result := TtiResponse{event.Text, ""}
 
+	fmt.Println("TextToImage: ", filename)
+	fmt.Println("TextToImage: ", event.Text)
+	fmt.Println("ChannelID: ", event.ChannelID)
 	err = slack.Instance.SendImageToSlack(bodyBytes, filename, event.Text, event.ChannelID)
 	if err != nil {
 		return nil, err
