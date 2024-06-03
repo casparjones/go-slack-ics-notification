@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Charge</title>
+</head>
+<body>
+<h1>Confirm Charge</h1>
+<p>Charge Name: {{ .charge.Name }}</p>
+<p>Charge Price: {{ .charge.Price }}</p>
+<p>Status: {{ .charge.Status }}</p>
+<a href="/confirm/{{ .charge.ID }}?action=accept"><button>Accept</button></a>
+<a href="/confirm/{{ .charge.ID }}?action=decline"><button>Decline</button></a>
+</body>
+</html>

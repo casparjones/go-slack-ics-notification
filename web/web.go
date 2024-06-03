@@ -5,6 +5,7 @@ import (
 	"go-slack-ics/clipdrop"
 	"go-slack-ics/gpt"
 	"go-slack-ics/leonardo"
+	"go-slack-ics/mock"
 	"go-slack-ics/slack"
 	"go-slack-ics/system"
 	"io"
@@ -16,6 +17,9 @@ type App struct{}
 
 func (App) ServeHTTP() {
 	r := gin.Default()
+
+	templatePath := "templates/*" // Setze den Template-Pfad
+	r.LoadHTMLGlob(templatePath)
 
 	eventManager := system.NewEventManager()
 	r.GET("/", func(c *gin.Context) {
@@ -156,6 +160,10 @@ func (App) ServeHTTP() {
 		}
 		c.JSON(200, response)
 	})
+
+	// mockingService
+	shopify := mock.NewShopify()
+	shopify.Routes(r)
 
 	r.NoRoute(func(c *gin.Context) {
 		c.String(404, "Nicht gefunden")
