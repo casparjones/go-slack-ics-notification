@@ -216,7 +216,7 @@ func (s *Shopify) confirmCharge(c *gin.Context) {
 
 	action := c.Query("action")
 	if action == "accept" {
-		charge.Status = "accepted"
+		charge.Status = "active"
 	} else if action == "decline" {
 		charge.Status = "declined"
 	} else {
