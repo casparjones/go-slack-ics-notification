@@ -134,7 +134,7 @@ func (s *Shopify) getRecurringApplicationCharge(c *gin.Context) {
 	idStr := s.Param(c, "recurring_application_charge_id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid charge ID"})
+		c.JSON(http.StatusBadRequest, gin.H{"errors": "Not Found"})
 		return
 	}
 
@@ -143,7 +143,7 @@ func (s *Shopify) getRecurringApplicationCharge(c *gin.Context) {
 
 	charge, exists := s.recurringApplicationCharges[id]
 	if !exists {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Charge not found"})
+		c.JSON(http.StatusNotFound, gin.H{"errors": "Not Found"})
 		return
 	}
 
@@ -154,7 +154,7 @@ func (s *Shopify) updateRecurringApplicationCharge(c *gin.Context) {
 	idStr := c.Param("recurring_application_charge_id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid charge ID"})
+		c.JSON(http.StatusBadRequest, gin.H{"errors": "Not Found"})
 		return
 	}
 
@@ -183,7 +183,7 @@ func (s *Shopify) deleteRecurringApplicationCharge(c *gin.Context) {
 	idStr := s.Param(c, "recurring_application_charge_id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid charge ID"})
+		c.JSON(http.StatusBadRequest, gin.H{"errors": "Not Found"})
 		return
 	}
 
@@ -204,7 +204,7 @@ func (s *Shopify) confirmCharge(c *gin.Context) {
 	idStr := c.Param("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid charge ID"})
+		c.JSON(http.StatusBadRequest, gin.H{"errors": "Not Found"})
 		return
 	}
 
