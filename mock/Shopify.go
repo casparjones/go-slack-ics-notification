@@ -27,6 +27,7 @@ type RecurringApplicationCharge struct {
 	TrialEndsOn     *time.Time `json:"trial_ends_on"`
 	UpdatedAt       time.Time  `json:"updated_at"`
 	Currency        string     `json:"currency"`
+	ApiClientId     string     `json:"api_client_id"`
 }
 
 type Charges struct {
@@ -98,6 +99,7 @@ func (s *Shopify) createRecurringApplicationCharge(c *gin.Context) {
 	charge.Test = &test
 	charge.TrialEndsOn = &now
 	charge.Currency = "USD"
+	charge.ApiClientId = "123456"
 
 	s.recurringApplicationCharges[charge.ID] = charge
 	s.mu.Unlock()
