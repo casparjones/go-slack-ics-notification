@@ -3,13 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Confirm Charge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+        a {
+            text-decoration: none;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-<h1>Confirm Charge</h1>
-<p>Charge Name: {{ .charge.Name }}</p>
-<p>Charge Price: {{ .charge.Price }}</p>
-<p>Status: {{ .charge.Status }}</p>
-<a href="/confirm/{{ .charge.ID }}?action=accept"><button>Accept</button></a>
-<a href="/confirm/{{ .charge.ID }}?action=decline"><button>Decline</button></a>
+<div class="container">
+    <h1>Confirm Charge</h1>
+    <p>Charge Name: {{ .charge.Name }}</p>
+    <p>Charge Price: {{ .charge.Price }}</p>
+    <p>Status: {{ .charge.Status }}</p>
+    <a href="/confirm/{{ .charge.ID }}?action=accept"><button>Accept</button></a>
+    <a href="/confirm/{{ .charge.ID }}?action=decline"><button>Decline</button></a>
+</div>
 </body>
 </html>
