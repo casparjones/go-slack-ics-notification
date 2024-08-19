@@ -145,6 +145,9 @@ func (c *Chat) Send(event slack.Event, responseChan chan slack.Response) slack.R
 	gptResponseString := ""
 	buf := make([]byte, 1024) // Puffer zum Halten der gelesenen Daten.
 	var dataObj Data
+	// Vor der Schleife definieren
+	var lastContent string
+
 	for {
 		n, err := body.Read(buf)
 
@@ -160,15 +163,20 @@ func (c *Chat) Send(event slack.Event, responseChan chan slack.Response) slack.R
 
 		// Verarbeiten Sie die gelesenen Daten...
 		gptResponseChunk = gptResponseChunk + string(buf[:n])
-		var re = regexp.MustCompile(`(?m)data:.{(.*)}`)
+		var re = regexp.MustCompile(`(?m)data: {.*}`)
 		for i, match := range re.FindAllString(gptResponseChunk, -1) {
 			jsonStr := strings.TrimPrefix(match, "data:")
 			err := json.Unmarshal([]byte(jsonStr), &dataObj)
 			if err != nil {
 				log.Printf("Error parsing JSON: %v", err)
 			} else {
-				gptResponseString = gptResponseString + dataObj.Choices[0].Delta.Content
-				response = slack.Instance.ChangeMessage(event.Timestamp, event.Channel, event.User, slack.GetSimpleMessage(event.User, event.Channel, gptResponseString))
+				deltaContent := dataObj.Choices[0].Delta.Content
+				// Nur den neuen Teil an Slack senden
+				if deltaContent != lastContent {
+					response = slack.Instance.ChangeMessage(event.Timestamp, event.Channel, event.User, slack.GetSimpleMessage(event.User, event.Channel, gptResponseString+deltaContent))
+					lastContent = deltaContent
+					gptResponseString = gptResponseString + deltaContent
+				}
 				fmt.Println(match, "found at index", i)
 				log.Printf("Read %d bytes: %s", n, buf[:n])
 				gptResponseChunk = strings.ReplaceAll(gptResponseChunk, match, "")
@@ -177,28 +185,12 @@ func (c *Chat) Send(event slack.Event, responseChan chan slack.Response) slack.R
 		}
 	}
 
-	// gptResponseString := resp.String()
-	//gptResponse := GptResponse{}
-	//if err != nil {
-	//	log.Fatalf("Error occurred while unmarshalling GPT-3 response: %v", err)
-	//}
-
 	c.AddMessageToConversation(event.Channel, Message{
 		Role:    "assistant",
 		Content: gptResponseString,
 	})
 
 	return response
-
-	/*
-		slackMessage := c.returnSlackMessage(gptResponse)
-		if event.Timestamp == "" {
-			return slack.Instance.SendMessage(event.Channel, event.User, slackMessage)
-		} else {
-			return slack.Instance.ChangeMessage(event.Timestamp, event.Channel, event.User, slackMessage)
-		}
-	*/
-
 }
 
 func (c *Chat) returnSlackMessage(gptResponse GptResponse) slack.Message {
