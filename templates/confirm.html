@@ -54,7 +54,7 @@
         <p>Charge Name: {{ .charge.Name }}</p>
         <p>Charge Price: {{ .charge.Price }}</p>
         <p>Status: {{ .charge.Status }}</p>
-        <p>Test: {{ if .charge.Test }}true{{ else }}false{{ end }}</p>
+        <p>Test: {{ .charge.Test }}</p>
     </div>
     <a href="/confirm/{{ .charge.ID }}?action=accept"><button>Accept</button></a>
     <a href="/confirm/{{ .charge.ID }}?action=decline"><button>Decline</button></a>
