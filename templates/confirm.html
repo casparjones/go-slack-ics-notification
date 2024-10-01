@@ -50,10 +50,12 @@
 <body>
 <div class="container">
     <h1>Confirm Charge</h1>
-    <p>Charge Name: {{ .charge.Name }}</p>
-    <p>Charge Price: {{ .charge.Price }}</p>
-    <p>Status: {{ .charge.Status }}</p>
-    <p>Test: {{ if .charge.Test }}true{{ else }}false{{ end }}</p>
+    <div style="text-align: left">
+        <p>Charge Name: {{ .charge.Name }}</p>
+        <p>Charge Price: {{ .charge.Price }}</p>
+        <p>Status: {{ .charge.Status }}</p>
+        <p>Test: {{ if .charge.Test }}true{{ else }}false{{ end }}</p>
+    </div>
     <a href="/confirm/{{ .charge.ID }}?action=accept"><button>Accept</button></a>
     <a href="/confirm/{{ .charge.ID }}?action=decline"><button>Decline</button></a>
 </div>
