@@ -96,8 +96,8 @@ func (s *Shopify) createRecurringApplicationCharge(c *gin.Context) {
 	charge.ConfirmationURL = fmt.Sprintf("%s/confirm/%d", domain, charge.ID)
 	charge.Status = "pending"
 	charge.Terms = "Standard Terms"
-	test := true
-	charge.Test = &test
+	test := charge.Test
+	charge.Test = test
 	charge.TrialEndsOn = &now
 	charge.Currency = "USD"
 	charge.ApiClientId = "123456"
