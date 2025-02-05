@@ -2,66 +2,45 @@ package mock
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
+	"go-slack-ics/system"
 	"net/http"
 	"strconv"
-	"sync"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
-type RecurringApplicationCharge struct {
-	ActivatedOn        *time.Time `json:"activated_on"`
-	BillingOn          *time.Time `json:"billing_on"`
-	CancelledOn        *time.Time `json:"cancelled_on"`
-	CappedAmount       string     `json:"capped_amount"`
-	ConfirmationURL    string     `json:"confirmation_url"`
-	CreatedAt          time.Time  `json:"created_at"`
-	ID                 int        `json:"id"`
-	Name               string     `json:"name"`
-	Price              float64    `json:"price"`
-	ReturnURL          string     `json:"return_url"`
-	Status             string     `json:"status"`
-	Terms              string     `json:"terms"`
-	Test               *bool      `json:"test"`
-	TrialDays          int        `json:"trial_days"`
-	TrialEndsOn        *time.Time `json:"trial_ends_on"`
-	UpdatedAt          time.Time  `json:"updated_at"`
-	Currency           string     `json:"currency"`
-	ApiClientId        string     `json:"api_client_id"`
-	DecoratedReturnUrl string     `json:"decorated_return_url"`
-}
-
-type Charges struct {
-	Charges []RecurringApplicationCharge `json:"recurring_application_charges"`
-}
-
-type Charge struct {
-	Charge RecurringApplicationCharge `json:"recurring_application_charge"`
-}
-
 type Shopify struct {
-	mu                          sync.Mutex
-	recurringApplicationCharges map[int]RecurringApplicationCharge
+	redis *system.Redis
 }
 
 func NewShopify() *Shopify {
 	s := &Shopify{
-		recurringApplicationCharges: make(map[int]RecurringApplicationCharge),
+		redis: system.NewRedis(),
 	}
 	go s.cleanupCharges()
 	return s
 }
 
+// cleanupCharges löscht Charges, die älter als 24 Stunden sind.
 func (s *Shopify) cleanupCharges() {
-	for {
-		time.Sleep(24 * time.Hour)
-		s.mu.Lock()
-		for id, charge := range s.recurringApplicationCharges {
+	ticker := time.NewTicker(24 * time.Hour)
+	for range ticker.C {
+		listKey := "recurring_application_charges_ids"
+		keys, err := s.redis.LRange(listKey, 0, -1)
+		if err != nil {
+			continue
+		}
+		for _, key := range keys {
+			var charge RecurringApplicationCharge
+			if err := s.redis.Get(key, &charge); err != nil {
+				continue
+			}
 			if time.Since(charge.CreatedAt) > 24*time.Hour {
-				delete(s.recurringApplicationCharges, id)
+				s.redis.Del(key)
+				s.redis.LRem(listKey, 0, key)
 			}
 		}
-		s.mu.Unlock()
 	}
 }
 
@@ -74,20 +53,17 @@ func (s *Shopify) createRecurringApplicationCharge(c *gin.Context) {
 
 	charge := chargeWrapper.Charge
 
-	// Generiere eine ID für den neuen Charge
-	s.mu.Lock()
-	idBase := 10000000
-	charge.ID = len(s.recurringApplicationCharges) + idBase
+	// Generiere eine eindeutige ID, z.B. basierend auf UnixNano
+	charge.ID = int(time.Now().UnixNano() & 0x7fffffff)
 	now := time.Now()
 	charge.CreatedAt = now
 	charge.UpdatedAt = now
-
-	// Fülle die Felder aus
 	charge.ActivatedOn = &now
 	charge.BillingOn = &now
 	charge.CancelledOn = &now
 	charge.CappedAmount = "100"
-	// Bestimme die aktuelle Domain
+
+	// Bestimme die Domain und erzeuge die ConfirmationURL
 	scheme := "http"
 	if c.Request.TLS != nil {
 		scheme = "https"
@@ -96,26 +72,42 @@ func (s *Shopify) createRecurringApplicationCharge(c *gin.Context) {
 	charge.ConfirmationURL = fmt.Sprintf("%s/confirm/%d", domain, charge.ID)
 	charge.Status = "pending"
 	charge.Terms = "Standard Terms"
-	test := charge.Test
-	charge.Test = test
 	charge.TrialEndsOn = &now
 	charge.Currency = "USD"
 	charge.ApiClientId = "123456"
 
-	s.recurringApplicationCharges[charge.ID] = charge
-	s.mu.Unlock()
+	// Speichere den Charge in Redis
+	key := fmt.Sprintf("recurring_application_charge:%d", charge.ID)
+	if err := s.redis.Set(key, charge); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Füge den Key der Liste aller Charges hinzu
+	listKey := "recurring_application_charges_ids"
+	if err := s.redis.LPush(listKey, key); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 
 	chargeWrapper.Charge = charge
 	c.JSON(http.StatusOK, chargeWrapper)
 }
 
 func (s *Shopify) getRecurringApplicationCharges(c *gin.Context) {
-	s.mu.Lock()
-	defer s.mu.Unlock()
+	listKey := "recurring_application_charges_ids"
+	keys, err := s.redis.LRange(listKey, 0, -1)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 
 	var charges []RecurringApplicationCharge
-	for _, charge := range s.recurringApplicationCharges {
-		charges = append(charges, charge)
+	for _, key := range keys {
+		var charge RecurringApplicationCharge
+		if err := s.redis.Get(key, &charge); err == nil {
+			charges = append(charges, charge)
+		}
 	}
 
 	c.JSON(http.StatusOK, Charges{charges})
@@ -126,7 +118,6 @@ func (s *Shopify) Param(c *gin.Context, key string) string {
 	if value != "" {
 		value = value[:len(value)-5]
 	}
-
 	return value
 }
 
@@ -137,16 +128,12 @@ func (s *Shopify) getRecurringApplicationCharge(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"errors": "Not Found"})
 		return
 	}
-
-	s.mu.Lock()
-	defer s.mu.Unlock()
-
-	charge, exists := s.recurringApplicationCharges[id]
-	if !exists {
+	key := fmt.Sprintf("recurring_application_charge:%d", id)
+	var charge RecurringApplicationCharge
+	if err := s.redis.Get(key, &charge); err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"errors": "Not Found"})
 		return
 	}
-
 	c.JSON(http.StatusOK, Charge{charge})
 }
 
@@ -164,17 +151,20 @@ func (s *Shopify) updateRecurringApplicationCharge(c *gin.Context) {
 		return
 	}
 
-	s.mu.Lock()
-	defer s.mu.Unlock()
-
-	charge, exists := s.recurringApplicationCharges[id]
-	if !exists {
+	key := fmt.Sprintf("recurring_application_charge:%d", id)
+	var charge RecurringApplicationCharge
+	if err := s.redis.Get(key, &charge); err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Charge not found"})
 		return
 	}
 
 	charge.CappedAmount = update.CappedAmount
-	s.recurringApplicationCharges[id] = charge
+	charge.UpdatedAt = time.Now()
+
+	if err := s.redis.Set(key, charge); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 
 	c.JSON(http.StatusOK, Charge{charge})
 }
@@ -186,17 +176,16 @@ func (s *Shopify) deleteRecurringApplicationCharge(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"errors": "Not Found"})
 		return
 	}
+	key := fmt.Sprintf("recurring_application_charge:%d", id)
 
-	s.mu.Lock()
-	defer s.mu.Unlock()
-
-	_, exists := s.recurringApplicationCharges[id]
-	if !exists {
+	if err := s.redis.Del(key); err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Charge not found"})
 		return
 	}
 
-	delete(s.recurringApplicationCharges, id)
+	// Entferne den Key auch aus der Liste
+	listKey := "recurring_application_charges_ids"
+	s.redis.LRem(listKey, 0, key)
 	c.JSON(http.StatusOK, gin.H{"message": "Charge deleted"})
 }
 
@@ -207,15 +196,12 @@ func (s *Shopify) confirmCharge(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"errors": "Not Found"})
 		return
 	}
-
-	s.mu.Lock()
-	charge, exists := s.recurringApplicationCharges[id]
-	if !exists {
-		s.mu.Unlock()
+	key := fmt.Sprintf("recurring_application_charge:%d", id)
+	var charge RecurringApplicationCharge
+	if err := s.redis.Get(key, &charge); err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Charge not found"})
 		return
 	}
-	s.mu.Unlock()
 
 	action := c.Query("action")
 	if action == "accept" {
@@ -229,16 +215,25 @@ func (s *Shopify) confirmCharge(c *gin.Context) {
 		return
 	}
 
-	s.mu.Lock()
-	s.recurringApplicationCharges[id] = charge
-	s.mu.Unlock()
+	if err := s.redis.Set(key, charge); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 
-	// Leite zur ReturnURL weiter
 	c.Redirect(http.StatusFound, charge.ReturnURL)
 }
 
 func (s *Shopify) Routes(engine *gin.Engine) {
 	shopify := engine.Group("/admin/api/:version/")
+	{
+		shopify.GET("/recurring_application_charges.json", s.getRecurringApplicationCharges)
+		shopify.POST("/recurring_application_charges.json", s.createRecurringApplicationCharge)
+		shopify.GET("/recurring_application_charges/:recurring_application_charge_id.json", s.getRecurringApplicationCharge)
+		shopify.PUT("/recurring_application_charges/:recurring_application_charge_id/customize.json", s.updateRecurringApplicationCharge)
+		shopify.DELETE("/recurring_application_charges/:recurring_application_charge_id.json", s.deleteRecurringApplicationCharge)
+	}
+
+	shopify = engine.Group("/:store/admin/api/:version/")
 	{
 		shopify.GET("/recurring_application_charges.json", s.getRecurringApplicationCharges)
 		shopify.POST("/recurring_application_charges.json", s.createRecurringApplicationCharge)
