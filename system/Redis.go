@@ -46,26 +46,36 @@ func NewRedis() *Redis {
 }
 
 // Set serialisiert den Wert (value) als JSON und speichert ihn unter dem angegebenen Key.
-func (r *Redis) Set(key string, value interface{}) error {
+func (r *Redis) Set(key string, value interface{}, alias string) error {
 	data, err := json.Marshal(value)
 	if err != nil {
 		return err
 	}
+
+	r.client.Set(r.ctx, alias, key, 0)
 	return r.client.Set(r.ctx, key, data, 0).Err() // 0 = kein Ablaufdatum
 }
 
 // Get lädt den Wert für den gegebenen Key, deserialisiert ihn aus JSON
 // und schreibt das Ergebnis in target (das als Pointer übergeben werden muss).
-func (r *Redis) Get(key string, target interface{}) error {
+func (r *Redis) Get(key string, aliasKey string, target interface{}) error {
 	data, err := r.client.Get(r.ctx, key).Result()
 	if err != nil {
-		return err
+		newKey, err := r.client.Get(r.ctx, aliasKey).Result()
+		if err != nil {
+			return err
+		}
+		data, err := r.client.Get(r.ctx, newKey).Result()
+		if err != nil {
+			return err
+		}
+		return json.Unmarshal([]byte(data), target)
 	}
 	return json.Unmarshal([]byte(data), target)
 }
 
 // LPush fügt einen Wert am Anfang der Liste hinzu.
-func (r *Redis) LPush(key string, value interface{}) error {
+func (r *Redis) LPush(key string, value interface{}, aliasKey string) error {
 	return r.client.LPush(r.ctx, key, value).Err()
 }
 

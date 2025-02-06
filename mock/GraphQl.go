@@ -2,6 +2,7 @@ package mock
 
 import (
 	"context"
+	"fmt"
 	"strconv"
 	"time"
 
@@ -62,7 +63,7 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 
 					// Versuche, ein Abonnement für diesen Store aus Redis zu laden
 					var subscription map[string]interface{}
-					err := s.redis.Get(key, &subscription)
+					err := s.redis.Get(key, s.getAliasKey(), &subscription)
 					if err != nil {
 						// Kein Eintrag gefunden, also leere Installation zurückgeben
 						return map[string]interface{}{
@@ -109,9 +110,9 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 					}
 
 					// Speichere das neue Subscription in Redis unter dem Key für den aktuellen Store.
-					key := "appInstallation:" + s.store
+					key := fmt.Sprintf("recurring_application_charge:%d", id)
 					// Überschreibe einen eventuell vorhandenen Eintrag.
-					s.redis.Set(key, subscription)
+					s.redis.Set(key, subscription, s.getAliasKey())
 
 					return subscription, nil
 				},
@@ -131,9 +132,13 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 	return s
 }
 
+func (s *ShopifyGraphQl) getAliasKey() string {
+	return fmt.Sprintf("recurring_application_charge_by_store:%s", s.store)
+}
+
 func (s *ShopifyGraphQl) GraphQLHandler(c *gin.Context) {
 	// Lese den "store"-Parameter aus der URL (z.B. /admin/:store/api/:version/graphql)
-	s.store = c.Param("store")
+	s.store = c.GetHeader("X-Shopify-Access-Token")
 
 	h := handler.New(&handler.Config{
 		Schema:   &s.schema,

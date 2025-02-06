@@ -12,6 +12,7 @@ import (
 
 type Shopify struct {
 	redis *system.Redis
+	store string
 }
 
 func NewShopify() *Shopify {
@@ -33,7 +34,7 @@ func (s *Shopify) cleanupCharges() {
 		}
 		for _, key := range keys {
 			var charge RecurringApplicationCharge
-			if err := s.redis.Get(key, &charge); err != nil {
+			if err := s.redis.Get(key, s.getAliasKey(), &charge); err != nil {
 				continue
 			}
 			if time.Since(charge.CreatedAt) > 24*time.Hour {
@@ -78,20 +79,24 @@ func (s *Shopify) createRecurringApplicationCharge(c *gin.Context) {
 
 	// Speichere den Charge in Redis
 	key := fmt.Sprintf("recurring_application_charge:%d", charge.ID)
-	if err := s.redis.Set(key, charge); err != nil {
+	if err := s.redis.Set(key, charge, s.getAliasKey()); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
 	// Füge den Key der Liste aller Charges hinzu
 	listKey := "recurring_application_charges_ids"
-	if err := s.redis.LPush(listKey, key); err != nil {
+	if err := s.redis.LPush(listKey, key, s.getAliasKey()); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
 	chargeWrapper.Charge = charge
 	c.JSON(http.StatusOK, chargeWrapper)
+}
+
+func (s *Shopify) getAliasKey() string {
+	return fmt.Sprintf("recurring_application_charge_by_store:%s", s.store)
 }
 
 func (s *Shopify) getRecurringApplicationCharges(c *gin.Context) {
@@ -105,7 +110,7 @@ func (s *Shopify) getRecurringApplicationCharges(c *gin.Context) {
 	var charges []RecurringApplicationCharge
 	for _, key := range keys {
 		var charge RecurringApplicationCharge
-		if err := s.redis.Get(key, &charge); err == nil {
+		if err := s.redis.Get(key, s.getAliasKey(), &charge); err == nil {
 			charges = append(charges, charge)
 		}
 	}
@@ -130,7 +135,7 @@ func (s *Shopify) getRecurringApplicationCharge(c *gin.Context) {
 	}
 	key := fmt.Sprintf("recurring_application_charge:%d", id)
 	var charge RecurringApplicationCharge
-	if err := s.redis.Get(key, &charge); err != nil {
+	if err := s.redis.Get(key, s.getAliasKey(), &charge); err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"errors": "Not Found"})
 		return
 	}
@@ -153,7 +158,7 @@ func (s *Shopify) updateRecurringApplicationCharge(c *gin.Context) {
 
 	key := fmt.Sprintf("recurring_application_charge:%d", id)
 	var charge RecurringApplicationCharge
-	if err := s.redis.Get(key, &charge); err != nil {
+	if err := s.redis.Get(key, s.getAliasKey(), &charge); err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Charge not found"})
 		return
 	}
@@ -161,7 +166,7 @@ func (s *Shopify) updateRecurringApplicationCharge(c *gin.Context) {
 	charge.CappedAmount = update.CappedAmount
 	charge.UpdatedAt = time.Now()
 
-	if err := s.redis.Set(key, charge); err != nil {
+	if err := s.redis.Set(key, charge, s.getAliasKey()); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -198,7 +203,7 @@ func (s *Shopify) confirmCharge(c *gin.Context) {
 	}
 	key := fmt.Sprintf("recurring_application_charge:%d", id)
 	var charge RecurringApplicationCharge
-	if err := s.redis.Get(key, &charge); err != nil {
+	if err := s.redis.Get(key, s.getAliasKey(), &charge); err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Charge not found"})
 		return
 	}
@@ -215,7 +220,7 @@ func (s *Shopify) confirmCharge(c *gin.Context) {
 		return
 	}
 
-	if err := s.redis.Set(key, charge); err != nil {
+	if err := s.redis.Set(key, charge, s.getAliasKey()); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -223,7 +228,25 @@ func (s *Shopify) confirmCharge(c *gin.Context) {
 	c.Redirect(http.StatusFound, charge.ReturnURL)
 }
 
+// Middleware zum Extrahieren des X-Shopify-Access-Token
+func (s *Shopify) AuthMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		token := c.GetHeader("X-Shopify-Access-Token")
+
+		if token == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing X-Shopify-Access-Token"})
+			c.Abort()
+			return
+		}
+
+		s.store = token
+		c.Next()
+	}
+}
+
 func (s *Shopify) Routes(engine *gin.Engine) {
+	engine.Use(s.AuthMiddleware())
+
 	shopify := engine.Group("/admin/api/:version/")
 	{
 		shopify.GET("/recurring_application_charges.json", s.getRecurringApplicationCharges)
