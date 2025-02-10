@@ -234,9 +234,7 @@ func (s *Shopify) AuthMiddleware() gin.HandlerFunc {
 		token := c.GetHeader("X-Shopify-Access-Token")
 
 		if token == "" {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing X-Shopify-Access-Token"})
-			c.Abort()
-			return
+			c.Header("X-Shopify-Access-Token", "missing")
 		}
 
 		s.store = token
@@ -246,7 +244,7 @@ func (s *Shopify) AuthMiddleware() gin.HandlerFunc {
 
 func (s *Shopify) Routes(engine *gin.Engine) {
 	engine.Use(s.AuthMiddleware())
-
+	engine.GET("/confirm/:id", s.confirmCharge)
 	shopify := engine.Group("/admin/api/:version/")
 	{
 		shopify.GET("/recurring_application_charges.json", s.getRecurringApplicationCharges)
@@ -263,6 +261,5 @@ func (s *Shopify) Routes(engine *gin.Engine) {
 		shopify.GET("/recurring_application_charges/:recurring_application_charge_id.json", s.getRecurringApplicationCharge)
 		shopify.PUT("/recurring_application_charges/:recurring_application_charge_id/customize.json", s.updateRecurringApplicationCharge)
 		shopify.DELETE("/recurring_application_charges/:recurring_application_charge_id.json", s.deleteRecurringApplicationCharge)
-		engine.GET("/confirm/:id", s.confirmCharge)
 	}
 }
