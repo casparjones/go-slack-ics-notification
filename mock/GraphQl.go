@@ -77,7 +77,8 @@ type ShopifyGraphQl struct {
 	redis  *system.Redis
 	schema graphql.Schema
 	// store wird pro Request gesetzt (in der Produktion per Context, um Datenrennen zu vermeiden)
-	store string
+	store  string
+	domain string
 }
 
 func NewShopifyGraphQl() *ShopifyGraphQl {
@@ -298,11 +299,8 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 						return nil, fmt.Errorf("currencyCode muss ein String sein")
 					}
 
-					// Generiere eine eindeutige ID basierend auf der aktuellen Unix-Zeit
 					unixTime := time.Now().Unix()
-					confirmationUrl := fmt.Sprintf("https://langify-testing-prod.myshopify.com/admin/charges/168501/%d/RecurringApplicationCharge/confirm_recurring_application_charge?signature=%s",
-						unixTime, "BAh7BzoHaWRsKwhNgXT0FQA6EmF1dG9fYWN0aXZhdGVU--simuliert")
-
+					confirmationUrl := fmt.Sprintf("%s/confirm/%d", s.domain, int(unixTime))
 					trialEndsOn := time.Now().Add(time.Duration(trialDays) * 24 * time.Hour)
 
 					subscription := RecurringApplicationCharge{
@@ -361,6 +359,12 @@ func (s *ShopifyGraphQl) getAliasKey() string {
 func (s *ShopifyGraphQl) GraphQLHandler(c *gin.Context) {
 	// Lese den "store"-Parameter (z. B. aus dem Header "X-Shopify-Access-Token")
 	s.store = c.GetHeader("X-Shopify-Access-Token")
+	// Bestimme die Domain und erzeuge die ConfirmationURL
+	scheme := "http"
+	if c.Request.TLS != nil {
+		scheme = "https"
+	}
+	s.domain = fmt.Sprintf("%s://%s", scheme, c.Request.Host)
 
 	h := handler.New(&handler.Config{
 		Schema:   &s.schema,
