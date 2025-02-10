@@ -167,8 +167,8 @@ func (App) ServeHTTP() {
 	shopify.Routes(r)
 
 	shopifyGraphql := mock.NewShopifyGraphQl()
-	r.POST("/admin/api/:version/graphql", shopifyGraphql.GraphQLHandler)
-	r.POST("/admin/api/graphql", shopifyGraphql.GraphQLHandler)
+	r.POST("/admin/api/:version/graphql.json", shopifyGraphql.GraphQLHandler)
+	r.POST("/admin/api/graphql.json", shopifyGraphql.GraphQLHandler)
 
 	r.NoRoute(func(c *gin.Context) {
 		c.String(404, "Nicht gefunden")
