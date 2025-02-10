@@ -29,12 +29,13 @@ type RecurringApplicationCharge struct {
 
 type RecurringApplicationChargeGraphQl struct {
 	RecurringApplicationCharge
-	ID        string
-	CreatedAt time.Time `json:"createdAt"`
-	Name      string    `json:"name"`
-	ReturnURL string    `json:"returnUrl"`
-	Status    string    `json:"status"`
-	Test      bool      `json:"test"`
+	Gid              string    `json:"id"`
+	CreatedAt        time.Time `json:"createdAt"`
+	CurrentPeriodEnd time.Time `json:"currentPeriodEnd"`
+	Name             string    `json:"name"`
+	ReturnURL        string    `json:"returnUrl"`
+	Status           string    `json:"status"`
+	Test             bool      `json:"test"`
 }
 
 type Charges struct {
@@ -45,7 +46,7 @@ type Charge struct {
 	Charge RecurringApplicationCharge `json:"recurring_application_charge"`
 }
 
-func (charge RecurringApplicationCharge) getSubscription() RecurringApplicationChargeGraphQl {
+func (charge RecurringApplicationCharge) GetSubscription() RecurringApplicationChargeGraphQl {
 	test := false
 	if charge.Test != nil {
 		test = *charge.Test
@@ -54,6 +55,7 @@ func (charge RecurringApplicationCharge) getSubscription() RecurringApplicationC
 		charge,
 		fmt.Sprintf("gid://shopify/AppSubscription/%d", charge.ID),
 		charge.CreatedAt,
+		charge.CreatedAt.AddDate(0, 0, 30),
 		charge.Name,
 		charge.ReturnURL,
 		charge.Status,

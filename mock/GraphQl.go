@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -56,20 +57,20 @@ var URLScalar = graphql.NewScalar(graphql.ScalarConfig{
 })
 
 // GetSubscription erstellt aus einem Charge eine Map, die dem GraphQL-Typ "AppSubscription" entspricht.
-func (r RecurringApplicationCharge) GetSubscription() map[string]interface{} {
+func (charge RecurringApplicationCharge) GetSubscriptionOld() map[string]interface{} {
 	testVal := false
-	if r.Test != nil {
-		testVal = *r.Test
+	if charge.Test != nil {
+		testVal = *charge.Test
 	}
 	return map[string]interface{}{
-		"id":               fmt.Sprintf("gid://shopify/AppSubscription/%d", r.ID),
-		"name":             r.Name,
-		"status":           r.Status,
-		"createdAt":        r.CreatedAt.Format(time.RFC3339),
+		"id":               fmt.Sprintf("gid://shopify/AppSubscription/%d", charge.ID),
+		"name":             charge.Name,
+		"status":           charge.Status,
+		"createdAt":        charge.CreatedAt.Format(time.RFC3339),
 		"test":             testVal,
-		"returnUrl":        r.ReturnURL,
-		"trialDays":        r.TrialDays,
-		"currentPeriodEnd": r.TrialEndsOn.Format(time.RFC3339),
+		"returnUrl":        charge.ReturnURL,
+		"trialDays":        charge.TrialDays,
+		"currentPeriodEnd": charge.TrialEndsOn.Format(time.RFC3339),
 	}
 }
 
@@ -100,6 +101,9 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 					}
 					if m, ok := p.Source.(map[string]interface{}); ok {
 						return m["id"], nil
+					}
+					if charge, ok := p.Source.(RecurringApplicationChargeGraphQl); ok {
+						return fmt.Sprintf("%s", charge.Gid), nil
 					}
 					return nil, nil
 				},
@@ -225,6 +229,32 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 						"id":                  "gid://shopify/AppInstallation/811826315597",
 						"activeSubscriptions": []interface{}{subscription.GetSubscription()},
 					}, nil
+				},
+			},
+			"node": &graphql.Field{
+				Type: appSubscriptionType,
+				Args: graphql.FieldConfigArgument{
+					"id": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.ID),
+					},
+				},
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					id, ok := p.Args["id"].(string)
+					if !ok {
+						return nil, fmt.Errorf("id must be a string")
+					}
+					parts := strings.Split(id, "/")
+					numStr := parts[len(parts)-1]
+					numId, _ := strconv.Atoi(numStr)
+
+					key := fmt.Sprintf("recurring_application_charge:%d", numId)
+					var charge RecurringApplicationCharge
+					if err := s.redis.Get(key, s.getAliasKey(), &charge); err == nil {
+						graphqlCharge := charge.GetSubscription()
+						return graphqlCharge, nil
+					}
+
+					return nil, fmt.Errorf("Subscription not found")
 				},
 			},
 		},
