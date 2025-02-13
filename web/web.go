@@ -6,6 +6,7 @@ import (
 	"go-slack-ics/gpt"
 	"go-slack-ics/leonardo"
 	"go-slack-ics/mock"
+	"go-slack-ics/mock/graphql"
 	"go-slack-ics/slack"
 	"go-slack-ics/system"
 	"io"
@@ -166,7 +167,7 @@ func (App) ServeHTTP() {
 	shopify := mock.NewShopify()
 	shopify.Routes(r)
 
-	shopifyGraphql := mock.NewShopifyGraphQl()
+	shopifyGraphql := graphql.NewShopifyGraphQl()
 	r.POST("/admin/api/:version/graphql.json", shopifyGraphql.GraphQLHandler)
 	r.POST("/admin/api/graphql.json", shopifyGraphql.GraphQLHandler)
 

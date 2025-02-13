@@ -1,9 +1,9 @@
-package mock
+package graphql
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
+	"go-slack-ics/mock"
 	"net/http"
 	"strconv"
 	"strings"
@@ -11,73 +11,15 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/graphql-go/graphql"
-	"github.com/graphql-go/graphql/language/ast"
 	"github.com/graphql-go/handler"
 	"go-slack-ics/system"
 )
 
-// responseCapture fängt die Response ab, bevor sie an den Client geschickt wird.
-type responseCapture struct {
-	http.ResponseWriter
-	buf        bytes.Buffer
-	statusCode int
-}
-
-func (rc *responseCapture) WriteHeader(code int) {
-	rc.statusCode = code
-	// Hier rufen wir WriteHeader nicht sofort auf, sondern machen das später
-}
-
-func (rc *responseCapture) Write(b []byte) (int, error) {
-	return rc.buf.Write(b)
-}
-
-// Definiere einen neuen Scalar-Typ "URL", der intern als String behandelt wird.
-var URLScalar = graphql.NewScalar(graphql.ScalarConfig{
-	Name:        "URL",
-	Description: "Der URL-Scalar-Typ repräsentiert eine URL als String.",
-	Serialize: func(value interface{}) interface{} {
-		if s, ok := value.(string); ok {
-			return s
-		}
-		return nil
-	},
-	ParseValue: func(value interface{}) interface{} {
-		if s, ok := value.(string); ok {
-			return s
-		}
-		return nil
-	},
-	ParseLiteral: func(valueAST ast.Value) interface{} {
-		if strVal, ok := valueAST.(*ast.StringValue); ok {
-			return strVal.Value
-		}
-		return nil
-	},
-})
-
-// GetSubscription erstellt aus einem Charge eine Map, die dem GraphQL-Typ "AppSubscription" entspricht.
-func (charge RecurringApplicationCharge) GetSubscriptionOld() map[string]interface{} {
-	testVal := false
-	if charge.Test != nil {
-		testVal = *charge.Test
-	}
-	return map[string]interface{}{
-		"id":               fmt.Sprintf("gid://shopify/AppSubscription/%d", charge.ID),
-		"name":             charge.Name,
-		"status":           charge.Status,
-		"createdAt":        charge.CreatedAt.Format(time.RFC3339),
-		"test":             testVal,
-		"returnUrl":        charge.ReturnURL,
-		"trialDays":        charge.TrialDays,
-		"currentPeriodEnd": charge.TrialEndsOn.Format(time.RFC3339),
-	}
-}
-
+// ShopifyGraphQl ist der Haupt-Typ, der unser Schema und weitere Abhängigkeiten hält.
 type ShopifyGraphQl struct {
 	redis  *system.Redis
 	schema graphql.Schema
-	// store wird pro Request gesetzt (in der Produktion per Context, um Datenrennen zu vermeiden)
+	// store wird pro Request gesetzt (um Datenrennen zu vermeiden)
 	store  string
 	domain string
 }
@@ -87,123 +29,14 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 		redis: system.NewRedis(),
 	}
 
-	// ─── OUTPUT TYPES ───────────────────────────────────────────────
-
-	// Typ "AppSubscription" (Output: id, name, status, createdAt, test)
-	appSubscriptionType := graphql.NewObject(graphql.ObjectConfig{
-		Name: "AppSubscription",
-		Fields: graphql.Fields{
-			"id": &graphql.Field{
-				Type: graphql.ID,
-				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-					if charge, ok := p.Source.(RecurringApplicationCharge); ok {
-						return fmt.Sprintf("gid://shopify/AppSubscription/%d", charge.ID), nil
-					}
-					if m, ok := p.Source.(map[string]interface{}); ok {
-						return m["id"], nil
-					}
-					if charge, ok := p.Source.(RecurringApplicationChargeGraphQl); ok {
-						return fmt.Sprintf("%s", charge.Gid), nil
-					}
-					return nil, nil
-				},
-			},
-			"name":             &graphql.Field{Type: graphql.String},
-			"status":           &graphql.Field{Type: graphql.String},
-			"createdAt":        &graphql.Field{Type: graphql.String},
-			"currentPeriodEnd": &graphql.Field{Type: graphql.String},
-			"trialDays":        &graphql.Field{Type: graphql.Int},
-			"test":             &graphql.Field{Type: graphql.Boolean},
-			"returnUrl":        &graphql.Field{Type: graphql.String},
-		},
-	})
-
-	// Typ "UserError"
-	userErrorType := graphql.NewObject(graphql.ObjectConfig{
-		Name: "UserError",
-		Fields: graphql.Fields{
-			"message": &graphql.Field{Type: graphql.String},
-			"field":   &graphql.Field{Type: graphql.NewList(graphql.String)},
-		},
-	})
-
-	// Payload-Typ für die Mutation "appSubscriptionCreate"
-	appSubscriptionCreatePayloadType := graphql.NewObject(graphql.ObjectConfig{
-		Name: "AppSubscriptionCreatePayload",
-		Fields: graphql.Fields{
-			"confirmationUrl": &graphql.Field{Type: graphql.String},
-			"appSubscription": &graphql.Field{Type: appSubscriptionType},
-			"userErrors":      &graphql.Field{Type: graphql.NewList(userErrorType)},
-		},
-	})
-
-	// ─── INPUT TYPES ───────────────────────────────────────────────
-
-	// Input für Price
-	priceInputType := graphql.NewInputObject(graphql.InputObjectConfig{
-		Name: "PriceInput",
-		Fields: graphql.InputObjectConfigFieldMap{
-			"amount": &graphql.InputObjectFieldConfig{
-				Type: graphql.NewNonNull(graphql.Float),
-			},
-			"currencyCode": &graphql.InputObjectFieldConfig{
-				Type: graphql.NewNonNull(graphql.String),
-			},
-		},
-	})
-
-	// Input für AppRecurringPricingDetails
-	appRecurringPricingDetailsInputType := graphql.NewInputObject(graphql.InputObjectConfig{
-		Name: "AppRecurringPricingDetailsInput",
-		Fields: graphql.InputObjectConfigFieldMap{
-			"price": &graphql.InputObjectFieldConfig{
-				Type: graphql.NewNonNull(priceInputType),
-			},
-			"interval": &graphql.InputObjectFieldConfig{
-				Type: graphql.NewNonNull(graphql.String),
-			},
-		},
-	})
-
-	// Input für Plan
-	planInputType := graphql.NewInputObject(graphql.InputObjectConfig{
-		Name: "PlanInput",
-		Fields: graphql.InputObjectConfigFieldMap{
-			"appRecurringPricingDetails": &graphql.InputObjectFieldConfig{
-				Type: graphql.NewNonNull(appRecurringPricingDetailsInputType),
-			},
-		},
-	})
-
-	// Input für AppSubscriptionLineItem
-	appSubscriptionLineItemInputType := graphql.NewInputObject(graphql.InputObjectConfig{
-		Name: "AppSubscriptionLineItemInput",
-		Fields: graphql.InputObjectConfigFieldMap{
-			"plan": &graphql.InputObjectFieldConfig{
-				Type: graphql.NewNonNull(planInputType),
-			},
-		},
-	})
-
-	// ─── ENUM-TYPE ─────────────────────────────────────────────
-
-	replacementBehaviorEnum := graphql.NewEnum(graphql.EnumConfig{
-		Name: "AppSubscriptionReplacementBehavior",
-		Values: graphql.EnumValueConfigMap{
-			"STANDARD":                    &graphql.EnumValueConfig{Value: "STANDARD"},
-			"APPLY_ON_NEXT_BILLING_CYCLE": &graphql.EnumValueConfig{Value: "APPLY_ON_NEXT_BILLING_CYCLE"},
-			"APPLY_IMMEDIATELY":           &graphql.EnumValueConfig{Value: "APPLY_IMMEDIATELY"},
-		},
-	})
-
-	// ─── QUERY-TYPE ─────────────────────────────────────────────
+	// ─── Query Type ──────────────────────────────────────────────
 
 	appInstallationType := graphql.NewObject(graphql.ObjectConfig{
 		Name: "AppInstallation",
 		Fields: graphql.Fields{
 			"id": &graphql.Field{Type: graphql.ID},
 			"activeSubscriptions": &graphql.Field{
-				Type: graphql.NewList(appSubscriptionType),
+				Type: graphql.NewList(AppSubscriptionType),
 			},
 		},
 	})
@@ -216,7 +49,7 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 					store := s.store
 					key := "appInstallation:" + store
 
-					var subscription RecurringApplicationCharge
+					var subscription mock.RecurringApplicationCharge
 					err := s.redis.Get(key, s.getAliasKey(), &subscription)
 					if err != nil {
 						return map[string]interface{}{
@@ -232,7 +65,7 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 				},
 			},
 			"node": &graphql.Field{
-				Type: appSubscriptionType,
+				Type: AppSubscriptionType,
 				Args: graphql.FieldConfigArgument{
 					"id": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.ID),
@@ -241,14 +74,14 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					id, ok := p.Args["id"].(string)
 					if !ok {
-						return nil, fmt.Errorf("id must be a string")
+						return nil, fmt.Errorf("id muss ein String sein")
 					}
 					parts := strings.Split(id, "/")
 					numStr := parts[len(parts)-1]
 					numId, _ := strconv.Atoi(numStr)
 
 					key := fmt.Sprintf("recurring_application_charge:%d", numId)
-					var charge RecurringApplicationCharge
+					var charge mock.RecurringApplicationCharge
 					if err := s.redis.Get(key, s.getAliasKey(), &charge); err == nil {
 						graphqlCharge := charge.GetSubscription()
 						return graphqlCharge, nil
@@ -260,18 +93,17 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 		},
 	})
 
-	// ─── MUTATION-TYPE ─────────────────────────────────────────────
+	// ─── Mutation Type ──────────────────────────────────────────────
 
 	mutationType := graphql.NewObject(graphql.ObjectConfig{
 		Name: "Mutation",
 		Fields: graphql.Fields{
 			"appSubscriptionCreate": &graphql.Field{
-				Type: appSubscriptionCreatePayloadType,
+				Type: AppSubscriptionCreatePayloadType,
 				Args: graphql.FieldConfigArgument{
 					"name": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
 					},
-					// Verwende den neuen URLScalar statt graphql.String
 					"returnUrl": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(URLScalar),
 					},
@@ -282,10 +114,10 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 						Type: graphql.Int,
 					},
 					"lineItems": &graphql.ArgumentConfig{
-						Type: graphql.NewNonNull(graphql.NewList(graphql.NewNonNull(appSubscriptionLineItemInputType))),
+						Type: graphql.NewNonNull(graphql.NewList(graphql.NewNonNull(AppSubscriptionLineItemInputType))),
 					},
 					"replacementBehavior": &graphql.ArgumentConfig{
-						Type: replacementBehaviorEnum,
+						Type: ReplacementBehaviorEnum,
 					},
 				},
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
@@ -299,7 +131,7 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 						*testPtr = testVal
 					}
 
-					// Extrahiere das Array der lineItems – hier verwenden wir einfach das erste Element
+					// Extrahiere das Array der lineItems – hier verwenden wir das erste Element
 					lineItemsArg, ok := p.Args["lineItems"].([]interface{})
 					if !ok || len(lineItemsArg) == 0 {
 						return nil, fmt.Errorf("lineItems müssen als nicht-leeres Array übergeben werden")
@@ -333,7 +165,7 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 					confirmationUrl := fmt.Sprintf("%s/confirm/%d", s.domain, int(unixTime))
 					trialEndsOn := time.Now().Add(time.Duration(trialDays) * 24 * time.Hour)
 
-					subscription := RecurringApplicationCharge{
+					subscription := mock.RecurringApplicationCharge{
 						ActivatedOn:        nil,
 						BillingOn:          nil,
 						CancelledOn:        nil,
@@ -386,8 +218,9 @@ func (s *ShopifyGraphQl) getAliasKey() string {
 	return fmt.Sprintf("recurring_application_charge_by_store:%s", s.store)
 }
 
+// GraphQLHandler verarbeitet die HTTP-Anfrage.
 func (s *ShopifyGraphQl) GraphQLHandler(c *gin.Context) {
-	// Lese den "store"-Parameter (z. B. aus dem Header "X-Shopify-Access-Token")
+	// Lese den "store"-Parameter (z. B. aus dem Header "X-Shopify-Access-Token")
 	s.store = c.GetHeader("X-Shopify-Access-Token")
 	// Bestimme die Domain und erzeuge die ConfirmationURL
 	scheme := "http"
@@ -402,13 +235,13 @@ func (s *ShopifyGraphQl) GraphQLHandler(c *gin.Context) {
 		GraphiQL: true,
 	})
 
-	// Erstelle unseren responseCapture, um die Ausgabe abzufangen.
-	capture := &responseCapture{
+	// Erstelle unseren ResponseCapture, um die Ausgabe abzufangen.
+	capture := &ResponseCapture{
 		ResponseWriter: c.Writer,
 		statusCode:     http.StatusOK,
 	}
 
-	// Lasse den Handler die Anfrage bearbeiten und schreibe in unseren capture.
+	// Lasse den Handler die Anfrage bearbeiten und schreibe in unseren Capture.
 	h.ServeHTTP(capture, c.Request)
 
 	// Hole den Response-Body aus dem Buffer.

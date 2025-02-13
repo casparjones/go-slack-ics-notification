@@ -27,38 +27,33 @@ type RecurringApplicationCharge struct {
 	DecoratedReturnUrl string     `json:"decorated_return_url"`
 }
 
-type RecurringApplicationChargeGraphQl struct {
-	RecurringApplicationCharge
-	Gid              string    `json:"id"`
-	CreatedAt        time.Time `json:"createdAt"`
-	CurrentPeriodEnd time.Time `json:"currentPeriodEnd"`
-	Name             string    `json:"name"`
-	ReturnURL        string    `json:"returnUrl"`
-	Status           string    `json:"status"`
-	Test             bool      `json:"test"`
-}
-
-type Charges struct {
-	Charges []RecurringApplicationCharge `json:"recurring_application_charges"`
-}
-
-type Charge struct {
-	Charge RecurringApplicationCharge `json:"recurring_application_charge"`
-}
-
+// GetSubscription erstellt aus einem Charge eine Map, die dem GraphQL-Typ "AppSubscription" entspricht.
 func (charge RecurringApplicationCharge) GetSubscription() RecurringApplicationChargeGraphQl {
-	test := false
+	testVal := false
 	if charge.Test != nil {
-		test = *charge.Test
+		testVal = *charge.Test
 	}
+	
 	return RecurringApplicationChargeGraphQl{
-		charge,
-		fmt.Sprintf("gid://shopify/AppSubscription/%d", charge.ID),
-		charge.CreatedAt,
-		charge.CreatedAt.AddDate(0, 0, 30),
-		charge.Name,
-		charge.ReturnURL,
-		charge.Status,
-		test,
+		RecurringApplicationCharge: charge,
+		Gid:                        fmt.Sprintf("gid://shopify/AppSubscription/%d", charge.ID),
+		Name:                       charge.Name,
+		Status:                     charge.Status,
+		Test:                       testVal,
+		ReturnURL:                  charge.ReturnURL,
+		CurrentPeriodEnd:           *charge.TrialEndsOn,
+		LineItems: []LineItem{
+			{
+				Plan: Plan{
+					PricingDetails: PriceDetails{
+						Price: Price{
+							Amount:   fmt.Sprintf("%.2f", charge.Price),
+							Currency: charge.Currency,
+						},
+						Interval: "EVERY_30_DAYS",
+					},
+				},
+			},
+		},
 	}
 }
