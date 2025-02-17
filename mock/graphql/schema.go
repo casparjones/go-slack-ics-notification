@@ -107,7 +107,7 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 
 					key := fmt.Sprintf("recurring_application_charge:%d", numId)
 					var charge mock.RecurringApplicationCharge
-					if err := s.redis.Get(key, s.getAliasKey(), &charge); err == nil {
+					if err := s.redis.Get(key, "no-alias", &charge); err == nil {
 						graphqlCharge := charge.GetSubscription()
 						return graphqlCharge, nil
 					}
