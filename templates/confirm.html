@@ -50,12 +50,19 @@
 <body>
 <div class="container">
     <h1>Confirm Charge</h1>
-    <div style="text-align: left">
-        <p>Charge Name: {{ .charge.Name }}</p>
-        <p>Charge Price: {{ .charge.Price }}</p>
-        <p>Status: {{ .charge.Status }}</p>
-        <p>Test: {{ .charge.Test }}</p>
+    <div style="text-align: left; font-size: 20px;">Charge Name: {{ .charge.Name }}</div>
+    <div style="display: flex">
+        <div style="width: 40%; text-align: left;">
+            <p>Charge Price: {{ .charge.Price }}</p>
+            <p>Status: {{ .charge.Status }}</p>
+        </div>
+        <div style="width: 60%; text-align: left;">
+            <p>ReplacementBehavior: {{ .charge.GetReplacementBehavior }}</p>
+            <p>Test: {{ .charge.Test }}</p>
+        </div>
     </div>
+
+    <p>Do you want to accept or decline this charge?</p>
     <a href="/confirm/{{ .charge.ID }}?action=accept"><button>Accept</button></a>
     <a href="/confirm/{{ .charge.ID }}?action=decline"><button>Decline</button></a>
 </div>

@@ -3,6 +3,7 @@ package graphql
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/graphql-go/graphql/language/ast"
 	"go-slack-ics/mock"
 	"net/http"
 	"strconv"
@@ -23,6 +24,30 @@ type ShopifyGraphQl struct {
 	store  string
 	domain string
 }
+
+// URLScalar repräsentiert einen URL-Scalar-Typ, der intern als String behandelt wird.
+var URLScalar = graphql.NewScalar(graphql.ScalarConfig{
+	Name:        "URL",
+	Description: "Der URL-Scalar-Typ repräsentiert eine URL als String.",
+	Serialize: func(value interface{}) interface{} {
+		if s, ok := value.(string); ok {
+			return s
+		}
+		return nil
+	},
+	ParseValue: func(value interface{}) interface{} {
+		if s, ok := value.(string); ok {
+			return s
+		}
+		return nil
+	},
+	ParseLiteral: func(valueAST ast.Value) interface{} {
+		if strVal, ok := valueAST.(*ast.StringValue); ok {
+			return strVal.Value
+		}
+		return nil
+	},
+})
 
 func NewShopifyGraphQl() *ShopifyGraphQl {
 	s := &ShopifyGraphQl{
@@ -124,6 +149,7 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 					name := p.Args["name"].(string)
 					returnUrl := p.Args["returnUrl"].(string)
 					trialDays, _ := p.Args["trialDays"].(int)
+					replacementBehavior, _ := p.Args["replacementBehavior"].(string)
 
 					var testPtr *bool
 					if testVal, ok := p.Args["test"].(bool); ok {
@@ -166,25 +192,26 @@ func NewShopifyGraphQl() *ShopifyGraphQl {
 					trialEndsOn := time.Now().Add(time.Duration(trialDays) * 24 * time.Hour)
 
 					subscription := mock.RecurringApplicationCharge{
-						ActivatedOn:        nil,
-						BillingOn:          nil,
-						CancelledOn:        nil,
-						CappedAmount:       "100",
-						ConfirmationURL:    confirmationUrl,
-						CreatedAt:          time.Now(),
-						ID:                 int(unixTime),
-						Name:               name,
-						Price:              amount,
-						ReturnURL:          returnUrl,
-						Status:             "PENDING",
-						Terms:              "Standard Terms",
-						Test:               testPtr,
-						TrialDays:          trialDays,
-						TrialEndsOn:        &trialEndsOn,
-						UpdatedAt:          time.Now(),
-						Currency:           currency,
-						ApiClientId:        "",
-						DecoratedReturnUrl: "",
+						ActivatedOn:         nil,
+						BillingOn:           nil,
+						CancelledOn:         nil,
+						CappedAmount:        "100",
+						ConfirmationURL:     confirmationUrl,
+						CreatedAt:           time.Now(),
+						ID:                  int(unixTime),
+						Name:                name,
+						Price:               amount,
+						ReturnURL:           returnUrl,
+						Status:              "PENDING",
+						Terms:               "Standard Terms",
+						Test:                testPtr,
+						TrialDays:           trialDays,
+						TrialEndsOn:         &trialEndsOn,
+						UpdatedAt:           time.Now(),
+						Currency:            currency,
+						ApiClientId:         "",
+						DecoratedReturnUrl:  "",
+						ReplacementBehavior: replacementBehavior,
 					}
 
 					key := fmt.Sprintf("recurring_application_charge:%d", unixTime)
