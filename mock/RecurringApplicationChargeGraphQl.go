@@ -21,7 +21,6 @@ type LineItem struct {
 }
 
 type RecurringApplicationChargeGraphQl struct {
-	RecurringApplicationCharge
 	Gid              string     `json:"id"`
 	CreatedAt        time.Time  `json:"createdAt"`
 	CurrentPeriodEnd time.Time  `json:"currentPeriodEnd"`
@@ -30,6 +29,7 @@ type RecurringApplicationChargeGraphQl struct {
 	Status           string     `json:"status"`
 	Test             bool       `json:"test"`
 	LineItems        []LineItem `json:"lineItems"`
+	TrialDays        int        `json:"trialDays"`
 }
 
 type Charges struct {

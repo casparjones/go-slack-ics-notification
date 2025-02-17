@@ -46,13 +46,14 @@ func (charge RecurringApplicationCharge) GetSubscription() RecurringApplicationC
 	}
 
 	return RecurringApplicationChargeGraphQl{
-		RecurringApplicationCharge: charge,
-		Gid:                        fmt.Sprintf("gid://shopify/AppSubscription/%d", charge.ID),
-		Name:                       charge.Name,
-		Status:                     charge.Status,
-		Test:                       testVal,
-		ReturnURL:                  charge.ReturnURL,
-		CurrentPeriodEnd:           *charge.TrialEndsOn,
+		Gid:              fmt.Sprintf("gid://shopify/AppSubscription/%d", charge.ID),
+		Name:             charge.Name,
+		Status:           charge.Status,
+		CreatedAt:        charge.CreatedAt,
+		Test:             testVal,
+		ReturnURL:        charge.ReturnURL,
+		CurrentPeriodEnd: *charge.TrialEndsOn,
+		TrialDays:        charge.TrialDays,
 		LineItems: []LineItem{
 			{
 				Plan: Plan{
