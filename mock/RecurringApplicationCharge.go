@@ -2,6 +2,7 @@ package mock
 
 import (
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -48,7 +49,7 @@ func (charge RecurringApplicationCharge) GetSubscription() RecurringApplicationC
 	return RecurringApplicationChargeGraphQl{
 		Gid:              fmt.Sprintf("gid://shopify/AppSubscription/%d", charge.ID),
 		Name:             charge.Name,
-		Status:           charge.Status,
+		Status:           strings.ToUpper(charge.Status),
 		CreatedAt:        charge.CreatedAt,
 		Test:             testVal,
 		ReturnURL:        charge.ReturnURL,
