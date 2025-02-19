@@ -17,7 +17,8 @@ type Plan struct {
 }
 
 type LineItem struct {
-	Plan Plan `json:"plan"`
+	Id   string `json:"id"`
+	Plan Plan   `json:"plan"`
 }
 
 type RecurringApplicationChargeGraphQl struct {

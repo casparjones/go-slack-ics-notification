@@ -56,6 +56,7 @@ func (charge RecurringApplicationCharge) GetSubscription() RecurringApplicationC
 		TrialDays:        charge.TrialDays,
 		LineItems: []LineItem{
 			{
+				Id: "gid://shopify/LineItem/1",
 				Plan: Plan{
 					PricingDetails: PriceDetails{
 						Price: Price{

@@ -40,6 +40,7 @@ var PlanType = graphql.NewObject(graphql.ObjectConfig{
 var LineItemType = graphql.NewObject(graphql.ObjectConfig{
 	Name: "LineItem",
 	Fields: graphql.Fields{
+		"id":   &graphql.Field{Type: graphql.String},
 		"plan": &graphql.Field{Type: PlanType},
 	},
 })
