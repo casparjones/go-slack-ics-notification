@@ -2,69 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirm Charge</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        h1 {
-            color: #333;
-        }
-        p {
-            font-size: 18px;
-            color: #555;
-        }
-        a {
-            text-decoration: none;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<div class="container">
-    <h1>Confirm Charge</h1>
-    <div style="text-align: left; font-size: 20px;">Charge Name: {{ .charge.Name }}</div>
-    <div style="display: flex">
-        <div style="width: 40%; text-align: left;">
-            <p>Charge Price: {{ .charge.Price }}</p>
-            <p>Status: {{ .charge.Status }}</p>
+<body class="bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center min-h-screen p-6">
+<div class="bg-white/10 backdrop-blur-lg p-8 rounded-lg shadow-lg max-w-md w-full text-white">
+    <h1 class="text-2xl font-semibold text-center mb-4">Confirm Charge</h1>
+
+    <div class="text-lg mb-2 border-b border-white/20 pb-2">
+        <span class="font-semibold">Charge Name:</span> {{ .charge.Name }}
+    </div>
+
+    <div class="flex justify-between text-lg mb-4">
+        <div>
+            <p><span class="font-semibold">Charge Price:</span> {{ .charge.Price }}</p>
+            <p><span class="font-semibold">Status:</span> {{ .charge.Status }}</p>
         </div>
-        <div style="width: 60%; text-align: left;">
-            <p>ReplacementBehavior: {{ .charge.GetReplacementBehavior }}</p>
-            <p>Test: {{ .charge.Test }}</p>
+        <div class="text-right">
+            <p><span class="font-semibold">Replacement Behavior:</span> {{ .charge.GetReplacementBehavior }}</p>
+            <p><span class="font-semibold">Test:</span> {{ .charge.Test }}</p>
         </div>
     </div>
 
-    <p>Do you want to accept or decline this charge?</p>
-    <a href="/confirm/{{ .charge.ID }}?action=accept"><button>Accept</button></a>
-    <a href="/confirm/{{ .charge.ID }}?action=decline"><button>Decline</button></a>
+    <p class="text-center text-white/80 mb-6">Do you want to accept or decline this charge?</p>
+
+    <div class="flex gap-4">
+        <a href="/confirm/{{ .charge.ID }}?action=decline"
+           class="w-1/2 text-center bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg transition-all">
+            Decline
+        </a>
+        <a href="/confirm/{{ .charge.ID }}?action=accept"
+           class="w-1/2 text-center bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg transition-all">
+            Accept
+        </a>
+    </div>
 </div>
 </body>
 </html>
